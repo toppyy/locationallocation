@@ -25,5 +25,6 @@ Both (TB & GRIA) seem like they could be written using only simple datastructure
 https://pdfs.semanticscholar.org/f2ee/2b6b213621d121ad11e809a1b1e10a7a47b6.pdf  
 https://onlinelibrary.wiley.com/doi/abs/10.1111/tgis.12322  
 http://www.trash.net/~ck/mastersthesis/  
+https://www.ualberta.ca/~cneuman/mgtsc461/Lectures/Lecture%204%20Sep%2030/lecture04b.ppt  
 
 
