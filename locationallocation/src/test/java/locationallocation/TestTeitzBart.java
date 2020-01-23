@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestTeitzBart {
-    @Test public void distanceMatrixIsCorrect() {
+    @Test public void correctFacilitySet() {
         
         
         Location[] testLocations1    = { new Location(1,1), new Location(5,9) , new Location(2,4),  new Location(11,3) };
@@ -18,9 +18,9 @@ public class TestTeitzBart {
         // Calculate distance matrix
         double[][] dist = calculateDistanceMatrix(testLocations1, testLocations2);
 
-        double expectedAnswer = 9.990705;
+        int[] expectedAnswer = { 3,1 }; // TODO: better test. Also tests order of indices which is not necessary
         
-        assertEquals("Incorrect answer of mimimum distance sum ", expectedAnswer, solveTeitzBart(2, dist), 0.000001  );
+        assertArrayEquals("Incorrect facility set as result", expectedAnswer, solveTeitzBart(2, dist)  );
 
 
         

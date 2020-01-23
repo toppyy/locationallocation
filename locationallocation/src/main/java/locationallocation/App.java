@@ -1,4 +1,4 @@
-/*
+/**
  * Solves the p-median problem
  */
 package locationallocation;
@@ -9,11 +9,8 @@ import locationallocation.Utils.*;
 import static locationallocation.TeitzBart.*;
 
 public class App {
-    public String getGreeting() {
-        return "nonsense";
 
-    }
-
+    
     public static void main(String[] args) {
 
         Location[] possibleFacilityLocations    = { new Location(1,1), new Location(5,9) , new Location(2,4),  new Location(11,3) };
@@ -23,8 +20,15 @@ public class App {
         // Calculate distance matrix
         double[][] dist = calculateDistanceMatrix(possibleFacilityLocations, demandLocations);
 
+        int[] answerTB = solveTeitzBart(P,dist);
 
-        System.out.println(solveTeitzBart(P,dist));
+        System.out.println("\nTeitzBart: ");
+        for (int i : answerTB) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+
+        
        
 
     }

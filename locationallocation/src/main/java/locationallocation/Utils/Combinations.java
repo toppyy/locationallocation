@@ -26,64 +26,42 @@ public class Combinations {
 
         int N = arr.length;
 
-        this.numberOfCombinations = factorial( N ) / (  factorial( N - P ) * factorial(P)) + 10;
+        this.numberOfCombinations = factorial( N ) / (  factorial( N - P ) * factorial(P)) ;
 
         this.combinations = new Location[this.numberOfCombinations][];
         this.comboCounter = 0;
 
     }
 
-    public Location[][] createCombinations(Location[] arr) {
+    public int[][] createCombinations(int[] arr, int P) {
 
-        if (arr.length == 2) {
-            Location[][] tmp  =  { { arr[0], arr[1] }, { arr[1], arr[0] }};
-            return tmp;
+        int N = arr.length;
+        int numberOfCombinations = factorial( N ) / (  factorial( N - P ) * factorial(P)) ;
+
+        int[][] rtrn = new int[numberOfCombinations][P];
+        int[] combo = new int[P];
+        
+
+        int toKeepIndex = P-2;
+        int combinations = 0;
+        while (combinations < numberOfCombinations) {
+            
+            for (int i= 0; i<toKeepIndex; i++) {
+                combo[i] = arr[i];
+            }
+            for (int i = (toKeepIndex-1); i < N; i++) {
+                combo[(toKeepIndex+1)] = i;
+                rtrn[combinations] = combo.clone();
+                combinations  = combinations + 1;
+            }
+
+            toKeepIndex = toKeepIndex - 1;
+            
+
+            
+            
         }
         
-
-        for ( int i = 0; i < arr.length; i++ ) {
-        
-            Location current = arr[i];
-            Location[] arrayWithoutCurrent = new Location[(arr.length-1)];
-
-            for ( int a = 0; a < arr.length; a++ ) {
-                if (a != i) {
-                    if (a>i) {
-                        arrayWithoutCurrent[a-1] = arr[i];
-                    } else {
-                        arrayWithoutCurrent[a]   =  arr[i];
-                    }
-                }
-
-            }
-            Location[][] newcombo = createCombinations(arrayWithoutCurrent);
-            System.out.println("newcombosize " + newcombo.length);
-            for (Location a : newcombo[0]) {
-
-            }
-            
-            for ( int a = 0; a < newcombo.length; a++ ) {
-                Location[] forConcat = new Location[ newcombo[a].length + 1 ];
-            
-                int pos = 0;
-                for (Location element : newcombo[a]) {
-                    forConcat[pos] = element;
-                    pos++;
-                }
-                forConcat[pos] = current;
-                newcombo[a] = forConcat;
-                
-            }
-
-            for (Location[] combo: newcombo) {
-                System.out.println(comboCounter);
-                this.combinations[comboCounter] = combo;
-                comboCounter++;
-            }
-            //System.out.println("\nSize of current: " + arr.length +" and size of minus-1: " + arrayWithoutCurrent.length);
-
-        }
-        
-        return this.combinations;
+        return rtrn;
     }
 }

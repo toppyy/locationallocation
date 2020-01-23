@@ -1,3 +1,5 @@
+
+
 /*
 * An implementation of the Teitz and Bart algorithm for solving the p-median problem
 * 
@@ -9,18 +11,17 @@ import locationallocation.Utils.Location;
 
 public class TeitzBart {
 
-    /*
-    private int P;
-    private double[][] distanceMatrix;
-  
+    
 
-    public TeitzBart(int P, double[][] distanceMatrix  ) {
-        this.P = P;
-        this.distanceMatrix     = distanceMatrix;
-       
-    }
-    */
-
+    
+    /** 
+     * Returns the sum distances between demand locations and a set facilities.
+     * Distance is minimized by allocating each demand location to closest facility.
+     * 
+     * @param rowset: set of rows for which to find sum of minimums of distances. 
+     * @param dm: a distancematrix that holds distances between facilities and demand locations. Row = facility location.
+     * @return double
+     */
     public static double sumOfDistanceMatrixMiminumRowset(int[] rowset, double[][] dm ) {
         double rtrn = 0, min_tmp, tmp;
         
@@ -43,7 +44,15 @@ public class TeitzBart {
         return rtrn;
     }
 
-    public static double solveTeitzBart(int P, double[][] distanceMatrix  ) {
+    
+    /** 
+     * Returns a set of facilities consired as the "optimal" locations based on demand.
+     * 
+     * @param P: Number of facilities to locate
+     * @param distanceMatrix: distancematrix that holds distances between facilities and demand locations. Row = facility location.
+     * @return int[]: Array of facility location indices
+     */
+    public static int[] solveTeitzBart(int P, double[][] distanceMatrix  ) {
 
         int numberOfTested = 0, possibleLocationCount = distanceMatrix.length, newcandidate;
         double toTestAgainst;
@@ -98,14 +107,9 @@ public class TeitzBart {
             
 
         }
-        System.out.println("Chosen:");
-        for (int id : locationSet) {
-            System.out.print(id + " ");
-        }
-        System.out.println("");
-        System.out.println("-----");
+        System.out.println("Sum of distances: " + sumOfDistanceMatrixMiminumRowset(locationSet, distanceMatrix));
 
-        return sumOfDistanceMatrixMiminumRowset(locationSet, distanceMatrix);
+        return locationSet;
     }
 
 }

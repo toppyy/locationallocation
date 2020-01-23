@@ -1,32 +1,26 @@
-/*
+/**
  * Naive/brute force solution for the p-median problem.
  *  - Minimize distance by going through all possible combinatios
  */
 package locationallocation;
 
-import locationallocation.Utils.Location;
-import locationallocation.Utils.Combinations;
 
 public class Naive {
 
-    private int P;
-    private Location[] possibleLocations, demandLocations;
-    private double[][] distanceMatrix;
-  
+    
+     /** 
+     * Returns the optimal set of facility locations based on demand.
+     * 
+     * @param P: Number of facilities to locate
+     * @param distanceMatrix: distancematrix that holds distances between facilities and demand locations. Row = facility location.
+     * @return int[]: Array of facility location indices
+     */
+    public static int[] solveNaive(int P, double[][] distanceMatrix  ) {
 
+        int[] rtrn = { 1,2,3 };
 
-    public Naive(int P, Location[] possibleLocations, Location[] demandLocations, double[][] distanceMatrix  ) {
-        this.P = P;
-        this.possibleLocations  = possibleLocations;
-        this.demandLocations    = demandLocations;
-        this.distanceMatrix     = distanceMatrix;
-       
-    }
+        return rtrn;
 
-    public double solve() {
-
-
-        return 1.1;
     }
 
 
