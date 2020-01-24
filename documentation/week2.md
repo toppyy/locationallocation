@@ -19,3 +19,8 @@
 * Refine TeitzBart by refactoring
 * Implement brute force solution using enumeration for benchmarking
 * If time: A simple input/output system to ease testing of actual cases
+
+
+# Hours spent
+
+Approx. 5h

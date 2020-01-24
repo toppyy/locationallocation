@@ -9,3 +9,5 @@
 
 * [Weekly report #1](https://github.com/toppyy/locationallocation/blob/master/documentation/week1.md)
 * [Weekly report #2](https://github.com/toppyy/locationallocation/blob/master/documentation/week2.md)
+
+### [Test coverage](https://toppyy.github.io/projects/locationallocationtestcoverage)
