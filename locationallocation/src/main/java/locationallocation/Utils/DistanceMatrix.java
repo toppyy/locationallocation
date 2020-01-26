@@ -5,7 +5,6 @@
 
 
 package locationallocation.Utils;
-import java.util.Arrays; 
 
 public class DistanceMatrix {
 

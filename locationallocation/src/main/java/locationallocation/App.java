@@ -22,14 +22,12 @@ public class App {
 
         int[] answerTB = solveTeitzBart(P,dist);
 
+        
         System.out.println("\nTeitzBart: ");
         for (int i : answerTB) {
             System.out.print(i + " ");
         }
         System.out.println();
-
         
-       
-
     }
 }

@@ -6,62 +6,74 @@
 package locationallocation.Utils;
 
 public class Combinations {
+   
 
-    private int P;
-    private Location[] arr;
-    public int numberOfCombinations, comboCounter;
-    public Location[][] combinations;
-    
-
-    public int factorial(int n) {
+    public static int factorial(int n) {
         if (n == 1) {
             return 1;
         }
         return n * factorial(n-1);
     }
 
-    public Combinations(int P,Location[] arr) {
-        this.arr = arr;
-        this.P   = P;
 
-        int N = arr.length;
+    public static int[][] createCombinations(int[] arr, int k) {
 
-        this.numberOfCombinations = factorial( N ) / (  factorial( N - P ) * factorial(P)) ;
+        int pit = arr.length;
 
-        this.combinations = new Location[this.numberOfCombinations][];
-        this.comboCounter = 0;
+        int komboja = factorial( pit ) / (  factorial( pit - k ) * factorial(k)) ;
 
-    }
-
-    public int[][] createCombinations(int[] arr, int P) {
-
-        int N = arr.length;
-        int numberOfCombinations = factorial( N ) / (  factorial( N - P ) * factorial(P)) ;
-
-        int[][] rtrn = new int[numberOfCombinations][P];
-        int[] combo = new int[P];
-        
-
-        int toKeepIndex = P-2;
-        int combinations = 0;
-        while (combinations < numberOfCombinations) {
-            
-            for (int i= 0; i<toKeepIndex; i++) {
-                combo[i] = arr[i];
-            }
-            for (int i = (toKeepIndex-1); i < N; i++) {
-                combo[(toKeepIndex+1)] = i;
-                rtrn[combinations] = combo.clone();
-                combinations  = combinations + 1;
-            }
-
-            toKeepIndex = toKeepIndex - 1;
-            
-
-            
-            
+        int[][] kombot      = new int[komboja][];
+        int[] Kt            = new int[k]; 
+        for (int i = 0; i < k; i++) {
+            Kt[i] = i+1;
         }
+
+
+       
+        int komboCounter = 0, i;
+        boolean paivitetty;
         
-        return rtrn;
+        while (komboCounter < komboja) {
+            
+            kombot[komboCounter] = Kt.clone();
+            komboCounter = komboCounter + 1;
+
+            if (komboCounter == komboja) {
+                break;
+            }
+
+            
+            if (Kt[k-1] == pit) {
+                
+                paivitetty = false;
+                i = k-2;
+                
+                while(!paivitetty) {
+                
+                    if ( Kt[i+1] - Kt[i] > 1 ) {
+                        
+                        Kt[i] = Kt[i] + 1;
+                    
+                        while( i < (k-1) ) {
+                            i = i +1;
+                            Kt[i] = Kt[i-1]+1;
+                        }
+                        paivitetty=true;
+                        
+                    }
+                    
+                    i = i - 1;
+                    
+                }
+                
+            } else {
+                
+                Kt[k-1] = Kt[k-1] + 1;
+                
+            }
+        }
+            
+        
+        return kombot;
     }
 }
