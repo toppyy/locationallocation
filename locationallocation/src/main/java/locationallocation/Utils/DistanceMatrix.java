@@ -18,7 +18,7 @@ public class DistanceMatrix {
 
         for ( int idx_a = 0; idx_a < setA.length; idx_a++ ) {
 
-            for ( int idx_b = 0; idx_b<setB.length; idx_b++ ) {
+            for ( int idx_b = 0; idx_b < setB.length; idx_b++ ) {
             
                 dist[idx_a][idx_b]  = calculateEuclideanDistance(setA[idx_a], setB[idx_b]);
 

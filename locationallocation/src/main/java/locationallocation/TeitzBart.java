@@ -8,6 +8,10 @@
 package locationallocation;
 
 
+import java.util.*;
+
+import locationallocation.Utils.*;
+
 import static locationallocation.Utils.DistanceMatrix.sumOfDistanceMatrixMiminumRowset;
 
 public class TeitzBart {
@@ -26,62 +30,65 @@ public class TeitzBart {
      */
     public static int[] solveTeitzBart(int P, double[][] distanceMatrix  ) {
 
-        int numberOfTested = 0, possibleLocationCount = distanceMatrix.length, newcandidate;
+        int newcandidate = -1;
         double toTestAgainst;
 
 
         // Init with first P locations
-        int[] locationSet = new int[P];
+        int[] initialSet = new int[P];
+        int[] initialCandidates = new int[distanceMatrix.length-P];
 
-        for (int i = 0; i < P; i++) {
-            locationSet[i] = i;
+        int ci = 0;
+        for (int i = 0; i < distanceMatrix.length; i++) {
+            if (i<P) {
+                initialSet[i] = i;
+            } else {
+                initialCandidates[ci] = i;
+                ci++;
+            }
         }
 
-        int[] tmp = new int[locationSet.length];
 
-        while ( numberOfTested <  possibleLocationCount ) {
-            toTestAgainst = sumOfDistanceMatrixMiminumRowset(locationSet, distanceMatrix);
-            newcandidate = numberOfTested;
-            numberOfTested++;
+        IntegerSet solutions = new IntegerSet(initialSet);
+        IntegerSet candidates = new IntegerSet(initialCandidates);
+        
+        double minOfTests = Double.MAX_VALUE, testsum;
+        int toBeReplaced = -1;
 
-            double minOfTests = Double.MAX_VALUE, testsum;
-            int minOfTestsIndex = -1;
 
-            // See if newcandidate is already in set
-            boolean newCandidateInSet  = false;
-            for (int location : locationSet) {
-                if (newcandidate == location) {
-                    newCandidateInSet = true;
-                }
-            }
-            // if so, continue without tests
-            if (newCandidateInSet) {
-                continue;
-            }
+        while (  !candidates.isEmpty() ) {
             
-            // Test by replacing each location in set with newcandidate
-            // Store minimum of tests
-            for (int i = 0; i < locationSet.length; i++) {
-                tmp = locationSet.clone();
+        
+            toTestAgainst = sumOfDistanceMatrixMiminumRowset( solutions.getIntegerSet(), distanceMatrix);
+
+            newcandidate = candidates.pop();
+
+            int[] testSet = solutions.getIntegerSet();
+            for (int i = 0; i < testSet.length; i++) {
+
+
+                int[] tmp = testSet.clone();
                 tmp[i] = newcandidate;
-                testsum = sumOfDistanceMatrixMiminumRowset(tmp, distanceMatrix);
+
+                testsum = sumOfDistanceMatrixMiminumRowset( tmp , distanceMatrix);
                 
                 if ( testsum < minOfTests  ) {
-                    minOfTests      = i;
-                    minOfTestsIndex = i;
+                    minOfTests      = testsum;
+                    toBeReplaced = testSet[i];
                 }
+                
             }
             // If better solution is found, change set 
             if ( minOfTests < toTestAgainst ) {
-                locationSet[ minOfTestsIndex ] = newcandidate;
+                
+                if ( solutions.setChange(toBeReplaced, newcandidate) ) {
+                    candidates.add(toBeReplaced);
+                }
             }
-
-            
-
         }
-        System.out.println("Sum of distances: " + sumOfDistanceMatrixMiminumRowset(locationSet, distanceMatrix));
+        System.out.println("Sum of distances: " + sumOfDistanceMatrixMiminumRowset( solutions.getIntegerSet() , distanceMatrix));
 
-        return locationSet;
+        return solutions.getIntegerSet();
     }
 
 }

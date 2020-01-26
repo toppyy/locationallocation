@@ -14,7 +14,7 @@ public class Combinations {
      * @param n
      * @return int
      */
-    private static int factorial(int n) {
+    private static long factorial(long n) {
         if (n == 1) {
             return 1;
         }
@@ -33,9 +33,10 @@ public class Combinations {
 
         int pit = arr.length;
 
-        int numberOfCombinations = factorial( pit ) / (  factorial( pit - k ) * factorial(k)) ;
+        long numberOfCombinations = factorial( pit ) / (  factorial( pit - k ) * factorial(k)) ;
+        System.out.println("\nNumber of combinations: " + numberOfCombinations + " for array of size " + pit + " and k: " + k);
 
-        int[][] combinations      = new int[numberOfCombinations][];
+        int[][] combinations      = new int[(int) numberOfCombinations][]; // TODO
         int[] Kt            = new int[k]; 
         for (int i = 0; i < k; i++) {
             Kt[i] = i+1;
