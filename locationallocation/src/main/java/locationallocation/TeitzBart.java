@@ -7,43 +7,15 @@
 
 package locationallocation;
 
-import locationallocation.Utils.Location;
+
+import static locationallocation.Utils.DistanceMatrix.sumOfDistanceMatrixMiminumRowset;
 
 public class TeitzBart {
 
     
 
     
-    /** 
-     * Returns the sum distances between demand locations and a set facilities.
-     * Distance is minimized by allocating each demand location to closest facility.
-     * 
-     * @param rowset: set of rows for which to find sum of minimums of distances. 
-     * @param dm: a distancematrix that holds distances between facilities and demand locations. Row = facility location.
-     * @return double
-     */
-    public static double sumOfDistanceMatrixMiminumRowset(int[] rowset, double[][] dm ) {
-        double rtrn = 0, min_tmp, tmp;
-        
-
-        for (int col = 0; col < dm[0].length; col++) {
-            
-            min_tmp = Double.MAX_VALUE;
-
-            for (int row : rowset) {
-
-                tmp = dm[row][col];
-                if (tmp<min_tmp) {
-                    min_tmp = tmp;
-                }
-            }
-            rtrn += min_tmp;
-            
-        }
-
-        return rtrn;
-    }
-
+    
     
     /** 
      * Returns a set of facilities consired as the "optimal" locations based on demand.

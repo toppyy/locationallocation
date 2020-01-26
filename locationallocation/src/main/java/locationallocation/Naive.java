@@ -4,6 +4,8 @@
  */
 package locationallocation;
 
+import static locationallocation.Utils.Combinations.createCombinations;
+import static locationallocation.Utils.DistanceMatrix.sumOfDistanceMatrixMiminumRowset;
 
 public class Naive {
 
@@ -17,9 +19,29 @@ public class Naive {
      */
     public static int[] solveNaive(int P, double[][] distanceMatrix  ) {
 
-        int[] rtrn = { 1,2,3 };
 
-        return rtrn;
+        double  currentMinimum = Double.MAX_VALUE, toTestAgainst;
+        int     indexOfCurrentMinimum = 0;
+
+    
+        // Create all possible combinations of facilities of size P
+        int[] m = new int[distanceMatrix.length];
+        for (int i = 0; i < m.length; i++) {
+            m[i] = i+1;
+        }
+        int[][] combinations = createCombinations(m,P);
+
+        for (int i = 0; i < combinations.length; i++) {
+            toTestAgainst = sumOfDistanceMatrixMiminumRowset(combinations[i], distanceMatrix);
+
+            if (toTestAgainst < currentMinimum) {
+                currentMinimum = toTestAgainst;
+                indexOfCurrentMinimum = i;
+            }
+
+        }
+        System.out.println("Naive solution: " + currentMinimum);
+        return combinations[indexOfCurrentMinimum];
 
     }
 

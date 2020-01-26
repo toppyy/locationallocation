@@ -13,9 +13,9 @@ public class TestCombinations{
         int[][] actual = createCombinations(testArray,2);       
 
         int [][] expected = {
-             { 1, 2 }
-            ,{ 1, 3 }
-            ,{ 2, 3 }
+             { 0, 1 }
+            ,{ 0, 2 }
+            ,{ 1, 2 }
         };
 
         assertArrayEquals("K-combinations of M not as expected",expected, actual);

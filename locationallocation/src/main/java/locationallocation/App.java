@@ -3,10 +3,12 @@
  */
 package locationallocation;
 
+import static locationallocation.Utils.Combinations.createCombinations;
 import static locationallocation.Utils.DistanceMatrix.*;
 import locationallocation.Utils.*;
 
 import static locationallocation.TeitzBart.*;
+import static locationallocation.Naive.*;
 
 public class App {
 
@@ -27,7 +29,15 @@ public class App {
         for (int i : answerTB) {
             System.out.print(i + " ");
         }
-        System.out.println();
-        
+        System.out.println("\n\n");
+
+       int[] answerNaive = solveNaive(P,dist);
+       System.out.println("Naive: ");
+       for (int i : answerNaive) {
+           System.out.print(i + " ");
+       }
+       System.out.println();
+
+       
     }
 }

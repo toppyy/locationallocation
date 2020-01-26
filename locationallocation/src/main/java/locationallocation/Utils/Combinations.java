@@ -1,5 +1,5 @@
 /*
-*   Returns p-sized combinatios of a given array of Locations
+*   Returns k-sized combinations of a given array
 */
 
 
@@ -8,7 +8,13 @@ package locationallocation.Utils;
 public class Combinations {
    
 
-    public static int factorial(int n) {
+    
+    /**
+     * Factorial 
+     * @param n
+     * @return int
+     */
+    private static int factorial(int n) {
         if (n == 1) {
             return 1;
         }
@@ -16,13 +22,20 @@ public class Combinations {
     }
 
 
+    
+    /** 
+     * Creates an array of arrays holding all k combinations of "arr"
+     * @param arr: array of items 
+     * @param k: size of combination
+     * @return int[][]: array of arrays holding indexes for combination. Not values of arr.
+     */
     public static int[][] createCombinations(int[] arr, int k) {
 
         int pit = arr.length;
 
-        int komboja = factorial( pit ) / (  factorial( pit - k ) * factorial(k)) ;
+        int numberOfCombinations = factorial( pit ) / (  factorial( pit - k ) * factorial(k)) ;
 
-        int[][] kombot      = new int[komboja][];
+        int[][] combinations      = new int[numberOfCombinations][];
         int[] Kt            = new int[k]; 
         for (int i = 0; i < k; i++) {
             Kt[i] = i+1;
@@ -31,24 +44,24 @@ public class Combinations {
 
        
         int komboCounter = 0, i;
-        boolean paivitetty;
+        boolean updated;
         
-        while (komboCounter < komboja) {
+        while (komboCounter < numberOfCombinations) {
             
-            kombot[komboCounter] = Kt.clone();
+            combinations[komboCounter] = Kt.clone();
             komboCounter = komboCounter + 1;
 
-            if (komboCounter == komboja) {
+            if (komboCounter == numberOfCombinations) {
                 break;
             }
 
             
             if (Kt[k-1] == pit) {
                 
-                paivitetty = false;
+                updated = false;
                 i = k-2;
                 
-                while(!paivitetty) {
+                while(!updated) {
                 
                     if ( Kt[i+1] - Kt[i] > 1 ) {
                         
@@ -58,7 +71,7 @@ public class Combinations {
                             i = i +1;
                             Kt[i] = Kt[i-1]+1;
                         }
-                        paivitetty=true;
+                        updated=true;
                         
                     }
                     
@@ -72,8 +85,16 @@ public class Combinations {
                 
             }
         }
+
+        // Fix this, but: -1 for all elements in all combinations
+        for (int a = 0; a < combinations.length; a++) {
+            for (int b = 0; b < combinations[0].length; b++) {
+                combinations[a][b] =  combinations[a][b] - 1;
+            
+            }
+        }
             
         
-        return kombot;
+        return combinations;
     }
 }
