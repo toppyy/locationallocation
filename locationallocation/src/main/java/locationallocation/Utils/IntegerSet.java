@@ -193,6 +193,7 @@
      * Print set preceded by a message.
      * @param message message to be printed before the set
      */
+    /*
     public void print(final String message) {
         System.out.println("\n " + message + " ");
         for (int i : this.integers) {
@@ -200,4 +201,5 @@
         }
         System.out.println("\n");
     }
+    */
  }

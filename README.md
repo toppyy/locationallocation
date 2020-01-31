@@ -7,7 +7,12 @@
 
 * [Weekly report #1](https://github.com/toppyy/locationallocation/blob/master/documentation/week1.md)
 * [Weekly report #2](https://github.com/toppyy/locationallocation/blob/master/documentation/week2.md)
+* [Weekly report #3](https://github.com/toppyy/locationallocation/blob/master/documentation/week3.md)
+
+## [Test summary] (https://toppyy.github.io/projects/locationallocation_code_quality/testsummary/index.html)
 
 ## [Test coverage](https://toppyy.github.io/projects/locationallocation_code_quality/jacoco/index.html)
   
-## [Checkstyle] (https://toppyy.github.io/projects/locationallocation_code_quality/checkstyle/main.html)  
+## [Checkstyle] (https://toppyy.github.io/projects/locationallocation_code_quality/checkstyle/main.html)
+
+
