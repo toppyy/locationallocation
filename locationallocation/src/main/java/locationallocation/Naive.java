@@ -7,29 +7,30 @@ package locationallocation;
 import static locationallocation.Utils.Combinations.createCombinations;
 import static locationallocation.Utils.DistanceMatrix.sumOfDistanceMatrixMiminumRowset;
 
-public class Naive {
+public final class Naive {
 
-    
+    private Naive() {
+    }
+
      /** 
      * Returns the optimal set of facility locations based on demand.
      * 
-     * @param P: Number of facilities to locate
-     * @param distanceMatrix: distancematrix that holds distances between facilities and demand locations. Row = facility location.
-     * @return int[]: Array of facility location indices
+     * @param pn Number of facilities to locate
+     * @param distanceMatrix distancematrix that holds distances between facilities and demand locations. Row = facility location.
+     * @return int[] Array of facility location indices
      */
-    public static int[] solveNaive(int P, double[][] distanceMatrix  ) {
+    public static int[] solveNaive(final int pn, final double[][] distanceMatrix) {
 
 
         double  currentMinimum = Double.MAX_VALUE, toTestAgainst;
         int     indexOfCurrentMinimum = 0;
 
-    
-        // Create all possible combinations of facilities of size P
+        // Create all possible combinations of facilities of size pn
         int[] m = new int[distanceMatrix.length];
         for (int i = 0; i < m.length; i++) {
-            m[i] = i+1;
+            m[i] = i + 1;
         }
-        int[][] combinations = createCombinations(m,P);
+        int[][] combinations = createCombinations(m, pn);
 
         for (int i = 0; i < combinations.length; i++) {
             toTestAgainst = sumOfDistanceMatrixMiminumRowset(combinations[i], distanceMatrix);

@@ -5,41 +5,43 @@
 
 package locationallocation.Utils;
 
-public class Combinations {
+public final class Combinations {
    
+    private Combinations() {
+    }
 
     
     /**
-     * Factorial 
+     * Factorial of n.
      * @param n
      * @return int
      */
-    private static long factorial(long n) {
+    private static long factorial(final long n) {
         if (n == 1) {
             return 1;
         }
-        return n * factorial(n-1);
+        return n * factorial(n - 1);
     }
 
 
     
     /** 
-     * Creates an array of arrays holding all k combinations of "arr"
-     * @param arr: array of items 
-     * @param k: size of combination
+     * Creates an array of arrays holding all k combinations of "arr".
+     * @param arr array of items 
+     * @param k size of combination
      * @return int[][]: array of arrays holding indexes for combination. Not values of arr.
      */
-    public static int[][] createCombinations(int[] arr, int k) {
+    public static int[][] createCombinations(final int[] arr, final int k) {
 
         int pit = arr.length;
 
-        long numberOfCombinations = factorial( pit ) / (  factorial( pit - k ) * factorial(k)) ;
+        long numberOfCombinations = factorial(pit) / (factorial(pit - k) * factorial(k));
         System.out.println("\nNumber of combinations: " + numberOfCombinations + " for array of size " + pit + " and k: " + k);
 
-        int[][] combinations      = new int[(int) numberOfCombinations][]; // TODO
-        int[] Kt            = new int[k]; 
+        int[][] combinations = new int[(int) numberOfCombinations][]; 
+        int[] kt = new int[k]; 
         for (int i = 0; i < k; i++) {
-            Kt[i] = i+1;
+            kt[i] = i + 1;
         }
 
 
@@ -49,7 +51,7 @@ public class Combinations {
         
         while (komboCounter < numberOfCombinations) {
             
-            combinations[komboCounter] = Kt.clone();
+            combinations[komboCounter] = kt.clone();
             komboCounter = komboCounter + 1;
 
             if (komboCounter == numberOfCombinations) {
@@ -57,22 +59,22 @@ public class Combinations {
             }
 
             
-            if (Kt[k-1] == pit) {
+            if (kt[k - 1] == pit) {
                 
                 updated = false;
-                i = k-2;
+                i = k - 2;
                 
-                while(!updated) {
+                while (!updated) {
                 
-                    if ( Kt[i+1] - Kt[i] > 1 ) {
+                    if (kt[i + 1] - kt[i] > 1) {
                         
-                        Kt[i] = Kt[i] + 1;
+                        kt[i] = kt[i] + 1;
                     
-                        while( i < (k-1) ) {
-                            i = i +1;
-                            Kt[i] = Kt[i-1]+1;
+                        while (i < (k - 1)) {
+                            i = i + 1;
+                            kt[i] = kt[i - 1] + 1;
                         }
-                        updated=true;
+                        updated = true;
                         
                     }
                     
@@ -82,7 +84,7 @@ public class Combinations {
                 
             } else {
                 
-                Kt[k-1] = Kt[k-1] + 1;
+                kt[k - 1] = kt[k - 1] + 1;
                 
             }
         }

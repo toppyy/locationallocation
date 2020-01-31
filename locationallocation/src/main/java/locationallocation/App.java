@@ -3,35 +3,42 @@
  */
 package locationallocation;
 
-import static locationallocation.Utils.Combinations.createCombinations;
-import static locationallocation.Utils.DistanceMatrix.*;
-import locationallocation.Utils.*;
+import static locationallocation.Utils.DistanceMatrix.calculateDistanceMatrix;
+import locationallocation.Utils.LocationLoader;
+import locationallocation.Utils.Location;
+
+import static locationallocation.TeitzBart.solveTeitzBart;
+import static locationallocation.Naive.solveNaive;
 
 
-import static locationallocation.TeitzBart.*;
-import static locationallocation.Naive.*;
+public final class App {
 
-import java.io.*;
+    private App() {
+    }
 
-public class App {
+    /**
+     * Number of facilities to choose.
+     */
+    private static final int PN = 3;
 
-    
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
 
         String path = ".\\src\\test\\resources\\testdata_1_demand_locations.csv";
-        LocationLoader testdataDemand = new LocationLoader(path,true);
+        LocationLoader testdataDemand = new LocationLoader(path, true);
         Location[] testDemandLocations = testdataDemand.loadAsLocations();
 
         path = ".\\src\\test\\resources\\testdata_1_facility_locations.csv";
-        LocationLoader testdataFacility = new LocationLoader(path,true);
+        LocationLoader testdataFacility = new LocationLoader(path, true);
         Location[] testFacilityLocations = testdataFacility.loadAsLocations();
 
-        int P = 3;
+        // pn for running algorithms
+        
+
 
         // Calculate distance matrix
-        double[][] dist = calculateDistanceMatrix(testFacilityLocations, testDemandLocations );
+        double[][] dist = calculateDistanceMatrix(testFacilityLocations, testDemandLocations);
 
-        int[] answerTB = solveTeitzBart(P,dist);
+        int[] answerTB = solveTeitzBart(PN, dist);
 
         
         System.out.println("\nTeitzBart: ");
@@ -40,14 +47,15 @@ public class App {
         }
         System.out.println("\n\n");
 
-        int[] answerNaive = solveNaive(P,dist);
+        int[] answerNaive = solveNaive(PN, dist);
         System.out.println("Naive: ");
         for (int i : answerNaive) {
             System.out.print(i + " ");
         }
-        System.out.println();
+        System.out.println("\n\n");
+        
+        GRIA griaSolver = new GRIA(PN, dist);
       
-    
 
     }
 }

@@ -6,21 +6,36 @@ import java.util.Scanner;
 import java.io.FileNotFoundException; 
 
 import java.util.ArrayList;
-import java.util.List;
-import java.io.*;
+import java.io.IOException;
 
-import locationallocation.Utils.Location;
 
 public class LocationLoader  {
-
+    /**
+     * Holds the file to be read.
+     */
     private File file;
+    /**
+     * Store information of existance of header.
+     */
     private boolean header;
+
+    /**
+     * Reads flat files into sets of locations.
+     * @param pathInput path of flatfile
+     * @param headerInput true/false. Does the file have a header? If true, first row is not read.
+     */
     
-    public LocationLoader(String path, boolean header)  {
-        this.file =  new File(path); 
-        this.header = header;
+    public LocationLoader(final String pathInput, final boolean headerInput)  {
+        this.file =  new File(pathInput); 
+        this.header = headerInput;
     }
 
+    
+    /** 
+     * Reads a flatfile and returns rows.
+     * @return ArrayList<String> Rows in a list
+     * @throws FileNotFoundException
+     */
     public ArrayList<String> readFile() throws FileNotFoundException {
         
         Scanner sc = new Scanner(file); 
@@ -28,20 +43,21 @@ public class LocationLoader  {
         ArrayList<String> rows = new ArrayList<String>();
 
         while (sc.hasNextLine()) {
-            rows.add( sc.nextLine() );
+            rows.add(sc.nextLine());
         }
 
         sc.close();
-
-
-
-
-
 
         return rows;
     }
 
 
+    
+    /** 
+     * Read a file as locations.
+     * Reads a flat file into a list of rows. Converts each row into a Location.
+     * @return Location[]
+     */
     public Location[] loadAsLocations() {
 
         try { 
@@ -51,19 +67,19 @@ public class LocationLoader  {
             // If header is true, skip first row
             int startRow = 0;
             if (this.header)  {
-                startRow=1;
+                startRow = 1;
             }
 
-            Location[] locations = new Location[lines.size()-startRow];
+            Location[] locations = new Location[lines.size() - startRow];
 
 
-            for (int i = startRow; i < lines.size(); i++ ) {
+            for (int i = startRow; i < lines.size(); i++) {
                 String[] columns = lines.get(i).split(";");
 
                 double x = Double.parseDouble(columns[1]);
                 double y = Double.parseDouble(columns[2]);
 
-                locations[i-startRow] = new Location(x,y);
+                locations[i - startRow] = new Location(x, y);
             }
 
             return locations;
@@ -77,8 +93,5 @@ public class LocationLoader  {
         } 
 
     }
-
-
-
 
 }
