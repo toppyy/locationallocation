@@ -40,3 +40,6 @@ jacocoTestReport {
 
 
 check.dependsOn jacocoTestReport
+
+// disable checkstyle for tests
+checkstyleTest.enabled = false

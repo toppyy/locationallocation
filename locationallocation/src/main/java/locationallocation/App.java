@@ -54,7 +54,7 @@ public final class App {
         }
         System.out.println("\n\n");
         
-        GRIA griaSolver = new GRIA(PN, dist);
+        GRIA griaSolver = new GRIA(PN, dist, testFacilityLocations);
       
 
     }
