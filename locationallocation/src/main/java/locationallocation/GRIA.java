@@ -4,37 +4,51 @@
 
 package locationallocation;
 
-import static locationallocation.Utils.DistanceMatrix.sumOfDistanceMatrixMiminumRowset;
-import static locationallocation.Utils.DistanceMatrix.calculateDistanceMatrix;
 
 import locationallocation.Utils.IntegerSet;
 import locationallocation.Utils.Location;
+import locationallocation.Utils.CostMatrix;
 
-public class GRIA {
+public class GRIA extends Solver {
 
     /**
-     * Distancematrix of facilities vs demand locations.
+     * Holds weicostsghts. 
      */
-
-    private double[][] distanceMatrix;
+    private CostMatrix  costs;
 
     /**
-     * Holds possible facility locations.
+     * Holds P.
+     */
+    private int pn;
+    /**
+     * Holds facilities.
      */
     private Location[] facilities;
 
     /**
-     * Solver for GRIA.
-     * @param pn number of facilities to choose
-     * @param distanceMatrixInput distancematrix between facilities and demand locations
-     * @param faciliesInput Array of potential facility location
+     * Solves the P-median problem with GRIA algorithm.
+     * @param pnInput Number of facilities to allocate
+     * @param costMatrixInput Matrix that holds costs (eg. distances) between facilities and demand locations.
+     * @param facilitiesInput Locations of possible facilities
      */
+    public GRIA(final CostMatrix costMatrixInput, final int pnInput, final Location[] facilitiesInput) {
+        super(costMatrixInput, pnInput);
 
-    public GRIA(final int pn, final double[][] distanceMatrixInput, final Location[] faciliesInput) {
+        this.costs = costMatrixInput;
+        this.pn = pnInput;
+        this.facilities = facilitiesInput;
 
-        this.distanceMatrix = distanceMatrixInput;
-        this.facilities     = faciliesInput;
+    }
 
+
+    /** 
+     * Returns a set of facilities consired as the "optimal" locations based on demand.
+     * 
+     * @return int[] Array of facility location indices
+     */
+    public int[] solve() {
+
+        
         int[] emptyArray = {};
 
         IntegerSet solution  = new IntegerSet(emptyArray), candidates = new IntegerSet(emptyArray);
@@ -42,8 +56,8 @@ public class GRIA {
         // Create initial solution and candidates
         // Initial solution is the first P facilities, candidates are facilities not in the initial solution
 
-        for (int i = 0; i < distanceMatrix.length; i++) {
-            if (i < pn) {
+        for (int i = 0; i < this.costs.getRowCount(); i++) {
+            if (i < this.pn) {
                 solution.add(i);
             } else {
                 candidates.add(i);
@@ -53,35 +67,31 @@ public class GRIA {
         // Global interchange
         IntegerSet[] returnFromGlobalInterchange = globalExhance(solution, candidates);
 
-        System.out.println("GRIA GLOBAL:");
-        for (int i : returnFromGlobalInterchange[0].getIntegerSet()) {
-            System.out.print(i + ", ");
-        }
 
-
-        System.out.println("\nGRIA REGIONAL: ");
+        // Regional interchange
         IntegerSet returnFromRegionalInterChange = regionalExchange(returnFromGlobalInterchange[0], returnFromGlobalInterchange[1]);
-        for (int i : returnFromRegionalInterChange.getIntegerSet()) {
-            System.out.print(i + ", ");
-        }
-        System.out.println("Sum: " + sumOfDistanceMatrixMiminumRowset(returnFromRegionalInterChange.getIntegerSet(), this.distanceMatrix));
+      
+        this.setResultCost(this.costs.costSumForRowset(returnFromRegionalInterChange));
+        this.setResult(returnFromRegionalInterChange);
 
-
-    }
+        return this.getResult();
+    }   
 
 
 
     /** 
      * Global interchange for (initial) solution. 
      *  1) Remove the facility which's removal increases total cost the least
-     *  2) Add the facility which provides the greatest cost decrese
-     *  3) If the swap lowers total cost, let it be. If not, reiterate phases 1-3 until it does.
+     *  2) Add the facility which provides the greatest cost decrease
+     *  3) If the swap lowers total cost, let it be. Reiterate phases 1-3 until it does not.
      * 
      * @param initialSolution Current solution
      * @param initialCandidates Possible facilities not in the current solution
      * @return int[] Solution and candidates after global interchange
      */
     private IntegerSet[] globalExhance(final IntegerSet initialSolution, final IntegerSet initialCandidates) {
+
+        
 
         IntegerSet solution = initialSolution, candidates = initialCandidates;
 
@@ -91,15 +101,15 @@ public class GRIA {
 
         while (bestObjectiveFunctionLessThanPreviousBest) {
 
-            beforeDrop = sumOfDistanceMatrixMiminumRowset(solution.getIntegerSet(), this.distanceMatrix);
+            beforeDrop = this.costs.costSumForRowset(solution);
    
             // Find best facility to drop
             toDropMin = Double.MAX_VALUE;
             for (int i = 0; i < solution.getSetSize(); i++) {
-                IntegerSet withoutISolution = new IntegerSet(solution.getIntegerSet());
+                IntegerSet withoutISolution = new IntegerSet(solution);
                 
                 withoutISolution.removeByIndex(i);
-                tmp =  sumOfDistanceMatrixMiminumRowset(withoutISolution.getIntegerSet(), this.distanceMatrix);
+                tmp =  this.costs.costSumForRowset(withoutISolution);
                 
                 if (tmp < toDropMin) {
                     toDropMin = tmp;
@@ -107,19 +117,19 @@ public class GRIA {
                 }
             }
         
-            IntegerSet solutionAfterDrop = new IntegerSet(solution.getIntegerSet());
+            IntegerSet solutionAfterDrop = new IntegerSet(solution);
             solutionAfterDrop.remove(toDrop);
 
             // Find the best facility to add
             toAddMin = Double.MAX_VALUE;
             for (int i = 0; i < candidates.getSetSize(); i++) {
 
-                IntegerSet withISolution = new IntegerSet(solutionAfterDrop.getIntegerSet());
+                IntegerSet withISolution = new IntegerSet(solutionAfterDrop);
 
                 int candidate = candidates.getIntegerByIndex(i);
                 withISolution.add(candidate);
             
-                tmp =  sumOfDistanceMatrixMiminumRowset(withISolution.getIntegerSet(), this.distanceMatrix);
+                tmp =  this.costs.costSumForRowset(withISolution);
  
                 if (tmp < toAddMin) {
                     toAddMin = tmp;
@@ -128,12 +138,12 @@ public class GRIA {
             }
 
             solutionAfterDrop.add(toAdd);
-            afterDropAdd = sumOfDistanceMatrixMiminumRowset(solutionAfterDrop.getIntegerSet(), this.distanceMatrix);
+            afterDropAdd = this.costs.costSumForRowset(solutionAfterDrop);
             
             // Cost before vs. after drop & add
             if (afterDropAdd <  beforeDrop) {
  
-                solution    = new IntegerSet(solutionAfterDrop.getIntegerSet());
+                solution    = new IntegerSet(solutionAfterDrop);
 
                 // Update candidates
                 candidates.remove(toAdd);
@@ -164,22 +174,24 @@ public class GRIA {
      */
     private IntegerSet regionalExchange(final IntegerSet initialSolution, final IntegerSet initialCandidates) {
 
-        IntegerSet solution = new IntegerSet(initialSolution.getIntegerSet()), candidates = initialCandidates;
+        IntegerSet solution = new IntegerSet(initialSolution), candidates = initialCandidates;
 
         // Distancematrix between locations and locations
-        double[][] distanceMatrixFacilities = calculateDistanceMatrix(this.facilities, this.facilities);
+        CostMatrix facilityCosts = new CostMatrix();
+        facilityCosts.calculateDistanceMatrix(this.facilities, this.facilities);
+        double[][] distanceMatrixFacilities = facilityCosts.getCosts();
         
         // Allocate all candidates to solution facilities based on proximity
         //  For each candidate facility, find closest facility in solution
         double minSwapCost = Double.MAX_VALUE, tmpCost = 0.0;
         int minSwapCostReplaceBy = 0, minSwapCostToReplace = 0;
         
-        for (int candidate : candidates.getIntegerSet()) {
+        for (int candidate : candidates.getIntegers()) {
             
             double min = Double.MAX_VALUE, distance = 0.0;
             int minFacility = 0;
 
-            for (int solutionInt : solution.getIntegerSet()) {
+            for (int solutionInt : solution.getIntegers()) {
                 distance =  distanceMatrixFacilities[candidate][solutionInt];
                 if (distance < min) {
                     min = distance;
@@ -189,9 +201,9 @@ public class GRIA {
 
             // Swap each candidate with the facility it's allocated to
             // And store which swap provides the lowest overall cost      
-            IntegerSet tmpSolution = new IntegerSet(solution.getIntegerSet());
+            IntegerSet tmpSolution = new IntegerSet(solution);
             tmpSolution.setChange(minFacility, candidate);
-            tmpCost = sumOfDistanceMatrixMiminumRowset(tmpSolution.getIntegerSet(), this.distanceMatrix);
+            tmpCost = this.costs.costSumForRowset(tmpSolution);
             if (tmpCost < minSwapCost) {
                 minSwapCost = tmpCost;
                 minSwapCostReplaceBy = candidate;
@@ -202,7 +214,7 @@ public class GRIA {
       
         
         // If found best swap is lower than total cost before regional interchange, persist it
-        if (minSwapCost < sumOfDistanceMatrixMiminumRowset(solution.getIntegerSet(), this.distanceMatrix)) {
+        if (minSwapCost < this.costs.costSumForRowset(solution)) {
             solution.setChange(minSwapCostToReplace, minSwapCostReplaceBy);
         }
         

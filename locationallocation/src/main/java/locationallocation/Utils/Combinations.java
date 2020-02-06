@@ -36,7 +36,7 @@ public final class Combinations {
         int pit = arr.length;
 
         long numberOfCombinations = factorial(pit) / (factorial(pit - k) * factorial(k));
-        System.out.println("\nNumber of combinations: " + numberOfCombinations + " for array of size " + pit + " and k: " + k);
+        
 
         int[][] combinations = new int[(int) numberOfCombinations][]; 
         int[] kt = new int[k]; 

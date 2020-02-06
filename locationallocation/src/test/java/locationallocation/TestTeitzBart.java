@@ -1,9 +1,8 @@
 package locationallocation;
 
-import static locationallocation.Utils.DistanceMatrix.*;
+import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
 
-import static locationallocation.TeitzBart.*;
 import locationallocation.Utils.LocationLoader;
 
 import org.junit.Test;
@@ -17,27 +16,36 @@ public class TestTeitzBart {
         Location[] testLocations2    = { new Location(7,11), new Location(2,8) , new Location(7,3) };
       
         // Calculate distance matrix
-        double[][] dist = calculateDistanceMatrix(testLocations1, testLocations2);
+
+        CostMatrix costs = new CostMatrix();
+        costs.calculateDistanceMatrix(testLocations1, testLocations2);
+
 
         int[] expectedAnswer = { 3,1 }; // TODO: better test. Also tests order of indices which is not necessary
+
+        Solver tb1 = new TeitzBart(costs, 2);
         
-        assertArrayEquals("1. Incorrect facility set as result", expectedAnswer, solveTeitzBart(2, dist)  );
+        assertArrayEquals("1. Incorrect facility set as result", expectedAnswer, tb1.solve());
 
         // 2. 
-        String path = ".\\src\\test\\resources\\testdata_1_demand_locations.csv";
+        String path = "src/test/resources/testdata_1_demand_locations.csv";
         LocationLoader testdataDemand = new LocationLoader(path,true);
         Location[] testDemandLocations = testdataDemand.loadAsLocations();
 
-        path = ".\\src\\test\\resources\\testdata_1_facility_locations.csv";
+        path = "src/test/resources/testdata_1_facility_locations.csv";
         LocationLoader testdataFacility = new LocationLoader(path,true);
         Location[] testFacilityLocations = testdataFacility.loadAsLocations();
 
         // Calculate distance matrix
-        double[][] dist2 = calculateDistanceMatrix(testFacilityLocations, testDemandLocations );
+         CostMatrix costs2 = new CostMatrix();
+        costs2.calculateDistanceMatrix(testFacilityLocations, testDemandLocations);
+
 
         int[] expectedAnswer2 = { 18,8,4 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        assertArrayEquals("2. Incorrect facility set as result", expectedAnswer2, solveTeitzBart(3, dist2)  );
+        Solver tb2 = new TeitzBart(costs2, 3);
+
+        assertArrayEquals("2. Incorrect facility set as result", expectedAnswer2, tb2.solve()  );
 
         
     }

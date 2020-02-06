@@ -18,7 +18,11 @@
     public IntegerSet(final int[] initialObjects) {
         this.integers = initialObjects;
         this.setSize = initialObjects.length;
-    } 
+    }
+    public IntegerSet(final IntegerSet initialObjects) {
+        this.integers = initialObjects.getIntegers(); // Get as int[]
+        this.setSize = this.integers.length;
+    }
 
     /**
      * Get set size.
@@ -145,7 +149,7 @@
      * Returns the set as an array.
      * @return int[] set as an array of integers
      */
-    public int[] getIntegerSet() {
+    public int[] getIntegers() {
         return this.integers.clone();
     }
 

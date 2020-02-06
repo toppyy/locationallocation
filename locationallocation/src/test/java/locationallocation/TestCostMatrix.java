@@ -1,12 +1,12 @@
 package locationallocation;
 
-import static locationallocation.Utils.DistanceMatrix.*;
+import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class TestDistanceMatrix {
+public class TestCostMatrix {
     @Test public void distanceMatrixIsCorrect() {
         
         
@@ -14,7 +14,10 @@ public class TestDistanceMatrix {
         Location[] testLocations2    = { new Location(7,11), new Location(2,8) , new Location(7,3) };
       
         // Calculate distance matrix
-        double[][] dist = calculateDistanceMatrix(testLocations1, testLocations2);
+        CostMatrix distM = new CostMatrix();
+        distM.calculateDistanceMatrix(testLocations1, testLocations2);
+
+        double[][] dist = distM.getCosts();
 
         double[][] answer = {
            { 11.6619037896906, 7.07106781186548, 6.32455532033676 },

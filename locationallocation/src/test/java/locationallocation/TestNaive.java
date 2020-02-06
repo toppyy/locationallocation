@@ -1,6 +1,6 @@
 package locationallocation;
 
-import static locationallocation.Utils.DistanceMatrix.*;
+import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
 
 import static locationallocation.Naive.*;
@@ -16,11 +16,15 @@ public class TestNaive {
         Location[] testLocations2    = { new Location(7,11), new Location(2,8) , new Location(7,3) };
       
         // Calculate distance matrix
-        double[][] dist = calculateDistanceMatrix(testLocations1, testLocations2);
+        CostMatrix costs = new CostMatrix();
+        costs.calculateDistanceMatrix(testLocations1, testLocations2);
 
         int[] expectedAnswer = { 1,3 }; // TODO: better test. Also tests order of indices which is not necessary
+
+        Solver naive = new Naive(costs, 2);
+    
         
-        assertArrayEquals("Incorrect facility set as result", expectedAnswer, solveNaive(2, dist)  );
+        assertArrayEquals("Incorrect facility set as result", expectedAnswer, naive.solve() );
 
 
         
