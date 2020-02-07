@@ -3,12 +3,12 @@ package locationallocation;
 import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
 
-import locationallocation.Naive;
+import locationallocation.GRIA;
 
 import org.junit.Test;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
 
-public class TestNaive {
+public class TestGRIA {
     @Test public void correctFacilitySet() {
         
         
@@ -20,10 +20,10 @@ public class TestNaive {
 
         int[] expectedAnswer = { 1,3 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        Solver naive = new Naive(costs, 2);
+        Solver gria = new GRIA(costs, 2, testLocations1);
     
         
-        assertArrayEquals("Incorrect facility set as result", expectedAnswer, naive.solve() );
+        assertArrayEquals("Incorrect facility set as result", expectedAnswer, gria.solve());
 
 
         

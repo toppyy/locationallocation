@@ -51,12 +51,17 @@ public class TeitzBart extends Solver {
         }
 
 
-        IntegerSet solutions = new IntegerSet(initialSet);
+        IntegerSet solutions  = new IntegerSet(initialSet);
         IntegerSet candidates = new IntegerSet(initialCandidates);
         
         double minOfTests = Double.MAX_VALUE, testsum;
         int toBeReplaced = -1;
 
+
+        // For each candidate
+        //  - Replace each facility on solution one by one
+        //  - Find minimum cost
+        //  - If lower than before any replacement, persist change
 
         while (!candidates.isEmpty()) {
             

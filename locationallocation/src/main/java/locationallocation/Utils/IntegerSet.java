@@ -176,21 +176,6 @@
         return rtrn;
     }
 
-    
-    /** 
-     * Check if an integer is in set.
-     * 
-     * @param toBeSearched integer to search
-     * @return boolean true if integer is in set, false if not
-     */
-    public boolean inSet(final int toBeSearched) {
-        for (int i : this.integers) {
-            if (toBeSearched == i) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     
     /** 

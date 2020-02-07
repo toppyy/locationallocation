@@ -18,7 +18,7 @@ public final class App {
     /**
      * Number of facilities to choose.
      */
-    private static final int PN = 3;
+    private static final int PN = 7;
 
     public static void main(final String[] args) {
 
@@ -31,28 +31,22 @@ public final class App {
         Location[] testFacilityLocations = testdataFacility.loadAsLocations();
 
         
-        // Calculate distance matrix
-       
-
-
-        CostMatrix costs = new CostMatrix();
-        costs.calculateDistanceMatrix(testFacilityLocations, testDemandLocations);
+        // Calculate cost matrix of euclidean distances
+        CostMatrix costs = new CostMatrix(testFacilityLocations, testDemandLocations);
 
         Solver teitzbart = new TeitzBart(costs, PN);
         teitzbart.solve();
         System.out.println("\nTeitzBart: ");
         teitzbart.printResults();
     
-
         Solver naive = new Naive(costs, PN);
 
         naive.solve();
         System.out.println("\nNaive: ");
         naive.printResults();
 
-        // GRIA
-
         Solver griaSolver = new GRIA(costs, PN, testFacilityLocations);
+
         griaSolver.solve();
         System.out.println("\nGRIA: ");
         griaSolver.printResults();

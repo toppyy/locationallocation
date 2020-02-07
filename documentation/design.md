@@ -6,7 +6,10 @@ The p-median problem is considered as *NP*-hard. However, heuristic algorithms g
 
 ### Input:
 
-* *p*: a positive integer. The number of facilities to be located ("hospitals" in the example)
+* *p*: a positive integer. For example: The number of facilities to be located ("hospitals" in the example)
+* *costmatrix*: A matrix that holds "costs" between possible facility locations and demand locations. Costs is usually the distance between the two. 
+
+Due to the fact that the cost matrix usually consists of distances between locations, it's also possible to provide two sets of locations as input instead of a costmatrix. A cost matrix based on euclidean distances can be calcucated if the input is two sets of locations:
 * *candidate points*: Possible locations for a single facility ("city" in the example). A set of coordinate pairs.
 * *demand points*: A set of coordinate pairs representing regions (zip codes, for example). Population count for each region is used as a weight.
 

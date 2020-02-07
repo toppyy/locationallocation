@@ -15,10 +15,7 @@ public class TestIntegerSet {
         assertEquals("setSize is incorrect after init ", testSet.length, set.getSetSize());
         set.add(99);
         assertEquals("setSize is incorrect after add ", testSet.length + 1, set.getSetSize());
-        assertEquals("inSet incorrect", true, set.inSet(99));
-        assertEquals("inSet incorrect", false, set.inSet(999));
         set.remove(11);
-        assertEquals("inSet incorrect", false, set.inSet(11));
         assertEquals("setSize is incorrect after remove ", testSet.length, set.getSetSize());
         assertEquals("getIntegerByIndex incorrect after remove ", 22, set.getIntegerByIndex(0));
         set.removeByIndex(2);

@@ -163,7 +163,7 @@ public class GRIA extends Solver {
     
 
     /** 
-     * Regional interchange for (initial) solution: 
+     * Regional interchange for solution: 
      *  1) Allocate each candidate facility to closest facility in solution
      *  2) Swap each candidate with the facility it's allocated to. Count cost 
      *  3) Find the swap that has the lowest total cost
@@ -177,8 +177,7 @@ public class GRIA extends Solver {
         IntegerSet solution = new IntegerSet(initialSolution), candidates = initialCandidates;
 
         // Distancematrix between locations and locations
-        CostMatrix facilityCosts = new CostMatrix();
-        facilityCosts.calculateDistanceMatrix(this.facilities, this.facilities);
+        CostMatrix facilityCosts = new CostMatrix(this.facilities, this.facilities);
         double[][] distanceMatrixFacilities = facilityCosts.getCosts();
         
         // Allocate all candidates to solution facilities based on proximity

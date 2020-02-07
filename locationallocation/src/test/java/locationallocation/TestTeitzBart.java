@@ -17,8 +17,7 @@ public class TestTeitzBart {
       
         // Calculate distance matrix
 
-        CostMatrix costs = new CostMatrix();
-        costs.calculateDistanceMatrix(testLocations1, testLocations2);
+        CostMatrix costs = new CostMatrix(testLocations1, testLocations2);
 
 
         int[] expectedAnswer = { 3,1 }; // TODO: better test. Also tests order of indices which is not necessary
@@ -37,8 +36,7 @@ public class TestTeitzBart {
         Location[] testFacilityLocations = testdataFacility.loadAsLocations();
 
         // Calculate distance matrix
-         CostMatrix costs2 = new CostMatrix();
-        costs2.calculateDistanceMatrix(testFacilityLocations, testDemandLocations);
+         CostMatrix costs2 = new CostMatrix(testFacilityLocations, testDemandLocations);
 
 
         int[] expectedAnswer2 = { 18,8,4 }; // TODO: better test. Also tests order of indices which is not necessary

@@ -14,8 +14,7 @@ public class TestCostMatrix {
         Location[] testLocations2    = { new Location(7,11), new Location(2,8) , new Location(7,3) };
       
         // Calculate distance matrix
-        CostMatrix distM = new CostMatrix();
-        distM.calculateDistanceMatrix(testLocations1, testLocations2);
+        CostMatrix distM = new CostMatrix(testLocations1, testLocations2);
 
         double[][] dist = distM.getCosts();
 

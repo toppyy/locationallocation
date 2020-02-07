@@ -17,23 +17,12 @@ public final class CostMatrix {
     }
 
     /**
-     * Calculates euclidean distance between two Locations.
-     * @param a Location
-     * @param b Another Location
-     * @return Euclidean distance
-    */
-
-    private double calculateEuclideanDistance(final Location a, final Location b) {
-        return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
-    }
-
-    /**
-     * Calculates a cost matrix for given sets of locations.
+     * Create a costmatrix of two sets of locations.
      * @param setA A set of locations
      * @param setB A set of locations
      */
-    public void calculateDistanceMatrix(final Location[] setA, final Location[] setB) {
-
+    public CostMatrix(final Location[] setA, final Location[] setB) {
+        
         double[][] dist = new double[setA.length][setB.length];
 
         for (int idxA = 0; idxA < setA.length; idxA++) {
@@ -47,6 +36,18 @@ public final class CostMatrix {
 
         this.costs = dist;
 
+    }   
+
+
+    /**
+     * Calculates euclidean distance between two Locations.
+     * @param a Location
+     * @param b Another Location
+     * @return Euclidean distance
+    */
+
+    private double calculateEuclideanDistance(final Location a, final Location b) {
+        return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
     }
 
     /** 

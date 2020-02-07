@@ -20,13 +20,17 @@
 *.rar
 
 # vscode
-/.vscode
+/locationallocation/.vscode
 
 # build
-/build
+/locationallocation/build
 
 # Ignore Gradle project-specific cache directory
-/.gradle
+/locationallocation/.gradle
+
+# 
+.gitignore
+
 
 # Dead code storage
 /dump
@@ -39,3 +43,6 @@ hs_err_pid*
 /locationallocation/.vscode/
 .vscode
 #
+
+
+locationallocation/src/test/java/locationallocation/TestQualityOfSolutions.java
