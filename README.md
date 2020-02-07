@@ -3,9 +3,9 @@
 
 ## [Design and aim of the project](https://github.com/toppyy/locationallocation/blob/master/documentation/design.md)
 
-## [Implementation] (https://github.com/toppyy/locationallocation/blob/master/documentation/implementation.md)
+## [Implementation](https://github.com/toppyy/locationallocation/blob/master/documentation/implementation.md)
 
-## [Test documentation] (https://github.com/toppyy/locationallocation/blob/master/documentation/tests.md)
+## [Test documentation](https://github.com/toppyy/locationallocation/blob/master/documentation/tests.md)
 
 ## Weekly reports
 
