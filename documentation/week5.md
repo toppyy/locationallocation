@@ -3,6 +3,7 @@
 ## What have I done?
 * Created a class for testing quality and performance of algorithms.
 * Created a markdown report for automatic reporting of results of quality/performance tests.
+* A class replacing Java's ArrayList (noted in peer review)
 
 ## Learned?
 * About running performance simulations.
@@ -17,4 +18,4 @@
 * Exception handling (based on peer preview)
 * Start work on GUI
 
-## Hours spent: Approx. 12h.
+## Hours spent: Approx. 14h.
