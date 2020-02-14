@@ -1,4 +1,8 @@
+
 package locationallocation.Qualitytest;
+/**
+ * Holds the results of locationallocation.Qualitytest.Reporter.
+ */
 
 
 public class Testresult {

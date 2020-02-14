@@ -1,12 +1,13 @@
-/**
- * Naive/brute force solution for the p-median problem.
- *  - Minimize distance by going through all possible combinatios
- */
+
 
 package locationallocation.Domain;
 
 import static locationallocation.Utils.Combinations.createCombinations;
 import locationallocation.Utils.CostMatrix;
+/**
+ * Naive/brute force solution for the p-median problem.
+ *  - Minimize distance by going through all possible combinatios
+ */
 
 public class Naive extends Solver {
 

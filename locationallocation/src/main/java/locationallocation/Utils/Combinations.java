@@ -1,27 +1,16 @@
-/*
-*   Returns k-sized combinations of a given array
-*/
 
 
 package locationallocation.Utils;
+/**
+ *   Returns k-sized combinations of a given array.
+ */
+
 
 public final class Combinations {
    
     private Combinations() {
     }
 
-    
-    /**
-     * Factorial of n.
-     * @param n
-     * @return int
-     */
-    private static long factorial(final long n) {
-        if (n == 1) {
-            return 1;
-        }
-        return n * factorial(n - 1);
-    }
 
     /**
      * Initial size of combinations array.
@@ -38,8 +27,6 @@ public final class Combinations {
 
         int pit = arr.length;
 
-
-        long numberOfCombinations = factorial(pit) / (factorial(pit - k) * factorial(k));
         
         int[][] combinations = new int[INITIAL_SIZE][]; 
         int[] kt = new int[k]; 

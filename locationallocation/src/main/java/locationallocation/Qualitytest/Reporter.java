@@ -12,7 +12,9 @@ import locationallocation.Domain.Naive;
 import locationallocation.Domain.Solver;
 import locationallocation.Domain.TeitzBart;
 
-
+/**
+ * Runs performance and quality reports for random solutions.
+ */
 
 
 public class Reporter {

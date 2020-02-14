@@ -1,11 +1,11 @@
-/**
- * Generic solver class
- */
+
 
 package locationallocation.Domain;
 import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.IntegerSet;
-
+/**
+ * Generic solver class.
+ */
 
 public abstract class Solver {
 

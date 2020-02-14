@@ -16,6 +16,9 @@ import locationallocation.Qualitytest.Reporter;
 import locationallocation.Qualitytest.Testresult;
 
 
+
+
+
 public final class App {
 
     private App() {
@@ -35,6 +38,8 @@ public final class App {
         path = "src/test/resources/testdata_1_facility_locations.csv";
         LocationLoader testdataFacility = new LocationLoader(path, true);
         Location[] testFacilityLocations = testdataFacility.loadAsLocations();
+
+        
        
         
         // Calculate cost matrix of euclidean distances
@@ -57,7 +62,7 @@ public final class App {
         System.out.println("\nGRIA: ");
         griaSolver.printResults();
         
-
+      
 
         // Test quality and performance
         System.out.println("Running tests..");
@@ -88,7 +93,7 @@ public final class App {
         //report.writeResults("/home/small tests with iterations.txt");
 
         System.out.println("... tests done.");
-    
+       
         
 
     }

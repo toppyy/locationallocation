@@ -1,18 +1,30 @@
 package locationallocation.Utils;
 
+/**
+* A data structure to store a "location" which is a coordinate pair.
+*/
+
 public class Location {
 
     /**
-     * A data structure to store a "location" which is a coordinate pair.
+     * Coordinates of location.
      */
     private final double x, y;
 
-
+    /**
+     * Creates a Location.
+     * @param inputX X-coordinate.
+     * @param inputY Y-coordinate.
+     */
     public Location(final double inputX, final double inputY) {
         this.x = inputX;
         this.y = inputY;
     }
 
+
+     
+
+    
     public final double[] getCoordinates()  {
 
         double[] rtrn = {this.x, this.y};

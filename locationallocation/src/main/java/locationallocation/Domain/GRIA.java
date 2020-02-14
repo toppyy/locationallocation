@@ -1,6 +1,3 @@
-/**
-* An implementation of the Global/Regional Interchange Algorithm (GRIA)
-*/
 
 
 package locationallocation.Domain;
@@ -9,6 +6,10 @@ package locationallocation.Domain;
 import locationallocation.Utils.IntegerSet;
 import locationallocation.Utils.Location;
 import locationallocation.Utils.CostMatrix;
+/**
+* An implementation of the Global/Regional Interchange Algorithm (GRIA).
+*/
+
 
 public class GRIA extends Solver {
 

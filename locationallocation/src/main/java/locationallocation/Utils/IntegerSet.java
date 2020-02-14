@@ -1,8 +1,9 @@
-/**
- * Data structure set
- */
+
 
  package locationallocation.Utils;
+ /**
+ * Set data structure (for integers).
+ */
 
  public class IntegerSet {
 

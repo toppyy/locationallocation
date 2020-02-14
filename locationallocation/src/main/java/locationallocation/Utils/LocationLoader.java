@@ -5,8 +5,11 @@ import java.io.File;
 import java.util.Scanner; 
 import java.io.FileNotFoundException; 
 
-import java.util.ArrayList;
 import java.io.IOException;
+
+/**
+ * Reads Locations from flatfiles.
+ */
 
 
 public class LocationLoader  {
@@ -33,14 +36,14 @@ public class LocationLoader  {
     
     /** 
      * Reads a flatfile and returns rows.
-     * @return ArrayList<String> Rows in a list
+     * @return String[] Rows as an array.
      * @throws FileNotFoundException
      */
-    public ArrayList<String> readFile() throws FileNotFoundException {
+    public ArrayList readFile() throws FileNotFoundException {
         
         Scanner sc = new Scanner(file); 
 
-        ArrayList<String> rows = new ArrayList<String>();
+        ArrayList rows = new ArrayList();
 
         while (sc.hasNextLine()) {
             rows.add(sc.nextLine());
@@ -50,6 +53,8 @@ public class LocationLoader  {
 
         return rows;
     }
+
+   
 
 
     
@@ -62,7 +67,7 @@ public class LocationLoader  {
 
         try { 
 
-            ArrayList<String> lines = readFile();
+            ArrayList lines = readFile();
             
             // If header is true, skip first row
             int startRow = 0;

@@ -1,12 +1,12 @@
-/**
- * Write into a flat file.
- */
+
 
 package locationallocation.Utils;
 
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**
+ * Write into a flat file.
+ */
 
 public final class Writer {
 

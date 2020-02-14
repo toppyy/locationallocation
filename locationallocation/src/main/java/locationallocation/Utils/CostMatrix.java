@@ -1,9 +1,8 @@
-/*
-*   Creates a cost matrix
-*/
-
-
 package locationallocation.Utils;
+/**
+ *   Creates a cost matrix.
+ */
+
 
 public final class CostMatrix {
 

@@ -57,13 +57,43 @@
         ]
       },
       {
+        "label": "javadocs",
+        "type": "shell",
+        "command": "javadoc",
+        "args": [
+          "-d",
+          "${workspaceFolder}/javadoc/",
+          "locationallocation",
+          "-sourcepath",
+          "${workspaceFolder}/src/main/java/",
+          "-subpackages",
+          "locationallocation.Utils",
+          "locationallocation.Domain",
+          "locationallocation.Qualitytest"
+        ],
+        "problemMatcher": []
+      },
+      {
+        "label": "javadocsCopy",
+        "type": "shell",
+        "command": "cp",
+        "args": [
+          "-r",
+          "${workspaceFolder}/javadoc/*",
+          "~/projects/toppyy.github.io/projects/locationallocation_code_quality/javadoc/"
+        ],"dependsOn": [
+          "javadocs"
+        ],
+      },
+      {
         "label": "coverage",
         "type": "shell",
         "command": "echo copying",
         "dependsOn": [
           "jacoco",
           "checkstyle",
-          "testsummary"
+          "testsummary",
+          "javadocsCopy"
         ],
         "group": {
           "kind": "build",

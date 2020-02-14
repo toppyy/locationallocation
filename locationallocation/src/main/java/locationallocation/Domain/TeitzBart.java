@@ -1,13 +1,14 @@
-/*
-* An implementation of the Teitz and Bart algorithm.
-* Solves the p-median problem.
-*/
+
 
 package locationallocation.Domain;
 
 
 import locationallocation.Utils.IntegerSet;
 import locationallocation.Utils.CostMatrix;
+/**
+* An implementation of the Teitz and Bart algorithm.
+* Solves the p-median problem.
+*/
 
 
 public class TeitzBart extends Solver {
