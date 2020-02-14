@@ -3,7 +3,7 @@
 * Solves the p-median problem.
 */
 
-package locationallocation;
+package locationallocation.Domain;
 
 
 import locationallocation.Utils.IntegerSet;

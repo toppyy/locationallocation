@@ -23,7 +23,10 @@ public final class Combinations {
         return n * factorial(n - 1);
     }
 
-
+    /**
+     * Initial size of combinations array.
+     */
+    private static final int INITIAL_SIZE = 10000000;
     
     /** 
      * Creates an array of arrays holding all k combinations of "arr".
@@ -35,26 +38,27 @@ public final class Combinations {
 
         int pit = arr.length;
 
+
         long numberOfCombinations = factorial(pit) / (factorial(pit - k) * factorial(k));
         
-
-        int[][] combinations = new int[(int) numberOfCombinations][]; 
+        int[][] combinations = new int[INITIAL_SIZE][]; 
         int[] kt = new int[k]; 
         for (int i = 0; i < k; i++) {
             kt[i] = i + 1;
         }
-
-
        
         int komboCounter = 0, i;
-        boolean updated;
+        boolean updated, notFinished = true;
         
-        while (komboCounter < numberOfCombinations) {
+        while (notFinished) {
             
             combinations[komboCounter] = kt.clone();
             komboCounter = komboCounter + 1;
 
-            if (komboCounter == numberOfCombinations) {
+            // Test if array last and first difference + 1 equals k
+            // True means no other combinations exist
+            if (kt[k - 1] == pit & (kt[k - 1] - kt[0] + 1)  == k) {
+                notFinished = false;
                 break;
             }
 
@@ -89,15 +93,22 @@ public final class Combinations {
             }
         }
 
-        // Fix this, but: -1 for all elements in all combinations
-        for (int a = 0; a < combinations.length; a++) {
+        // Create an array of the size that was actually needed
+        int[][] combinationsToReturn = new int[komboCounter][]; 
+
+        for (int a = 0; a < komboCounter; a++) {
+
+            combinationsToReturn[a] = combinations[a].clone();
+
             for (int b = 0; b < combinations[0].length; b++) {
-                combinations[a][b] =  combinations[a][b] - 1;
+
+                // Fix this, but: -1 for all elements in all combinations for indexing purposes.
+                combinationsToReturn[a][b] =  combinations[a][b] - 1;
             
             }
         }
             
         
-        return combinations;
+        return combinationsToReturn;
     }
 }

@@ -2,8 +2,9 @@ package locationallocation;
 
 import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
-
 import locationallocation.Utils.LocationLoader;
+
+import locationallocation.Domain.TeitzBart;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -22,7 +23,7 @@ public class TestTeitzBart {
 
         int[] expectedAnswer = { 3,1 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        Solver tb1 = new TeitzBart(costs, 2);
+        TeitzBart tb1 = new TeitzBart(costs, 2);
         
         assertArrayEquals("1. Incorrect facility set as result", expectedAnswer, tb1.solve());
 
@@ -41,7 +42,7 @@ public class TestTeitzBart {
 
         int[] expectedAnswer2 = { 18,8,4 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        Solver tb2 = new TeitzBart(costs2, 3);
+        TeitzBart tb2 = new TeitzBart(costs2, 3);
 
         assertArrayEquals("2. Incorrect facility set as result", expectedAnswer2, tb2.solve()  );
 

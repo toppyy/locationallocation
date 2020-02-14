@@ -2,7 +2,8 @@
  * Naive/brute force solution for the p-median problem.
  *  - Minimize distance by going through all possible combinatios
  */
-package locationallocation;
+
+package locationallocation.Domain;
 
 import static locationallocation.Utils.Combinations.createCombinations;
 import locationallocation.Utils.CostMatrix;
@@ -17,8 +18,8 @@ public class Naive extends Solver {
      */
     public Naive(final CostMatrix costMatrixInput, final int pnInput) {
         super(costMatrixInput, pnInput);
-
     }
+
 
      /** 
      * Returns the optimal set of facility locations based on demand.
@@ -39,6 +40,7 @@ public class Naive extends Solver {
             m[i] = i + 1;
         }
         int[][] combinations = createCombinations(m, this.getP());
+
 
         for (int i = 0; i < combinations.length; i++) {
             toTestAgainst = costs.costSumForRowset(combinations[i]);

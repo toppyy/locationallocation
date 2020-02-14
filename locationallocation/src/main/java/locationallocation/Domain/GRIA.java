@@ -2,7 +2,8 @@
 * An implementation of the Global/Regional Interchange Algorithm (GRIA)
 */
 
-package locationallocation;
+
+package locationallocation.Domain;
 
 
 import locationallocation.Utils.IntegerSet;

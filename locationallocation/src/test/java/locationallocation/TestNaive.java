@@ -3,7 +3,7 @@ package locationallocation;
 import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
 
-import locationallocation.Naive;
+import locationallocation.Domain.Naive;
 
 import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
@@ -20,7 +20,7 @@ public class TestNaive {
 
         int[] expectedAnswer = { 1,3 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        Solver naive = new Naive(costs, 2);
+        Naive naive = new Naive(costs, 2);
     
         
         assertArrayEquals("Incorrect facility set as result", expectedAnswer, naive.solve() );

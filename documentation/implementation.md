@@ -1,4 +1,4 @@
-# Implementantion
+# Implementation
 
 Three algorithms solving the p-median problem are implemented: 
 * Brute force 

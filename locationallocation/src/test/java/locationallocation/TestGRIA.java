@@ -3,7 +3,7 @@ package locationallocation;
 import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
 
-import locationallocation.GRIA;
+import locationallocation.Domain.GRIA;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,7 +20,7 @@ public class TestGRIA {
 
         int[] expectedAnswer = { 1,3 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        Solver gria = new GRIA(costs, 2, testLocations1);
+        GRIA gria = new GRIA(costs, 2, testLocations1);
     
         
         assertArrayEquals("Incorrect facility set as result", expectedAnswer, gria.solve());

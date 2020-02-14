@@ -1,7 +1,8 @@
 /**
  * Generic solver class
  */
-package locationallocation;
+
+package locationallocation.Domain;
 import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.IntegerSet;
 
