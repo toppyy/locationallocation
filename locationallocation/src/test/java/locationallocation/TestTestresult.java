@@ -7,8 +7,8 @@ import static org.junit.Assert.assertEquals;
 
 public class TestTestresult {
 
-    @Test public void gettersWork() {
 
+    @Test public void TestGetters() {
 
         int p = 5, candidates = 10, demandlocations = 20;
         double cost = 123.4;
@@ -16,6 +16,7 @@ public class TestTestresult {
         String algorithmName = "TB";
         
         Testresult result = new Testresult(p,candidates,demandlocations,cost,timeElapsed,algorithmName);
+        
 
         assertEquals("Getter for P does not work", p, result.getP() );
         assertEquals("Getter for candidates does not work", candidates, result.getCandidates() );

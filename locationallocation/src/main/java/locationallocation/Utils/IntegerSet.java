@@ -2,7 +2,7 @@
 
  package locationallocation.Utils;
  /**
- * Set data structure (for integers).
+ * Datastructure providing some of the behavior of Set and Arraylist Java-classes. For integers.
  */
 
  public class IntegerSet {
@@ -38,9 +38,11 @@
      * Replace an integer in set by another integer.
      * @param toReplace integer to be replaced
      * @param replaceByThis integer to replace by
-     * @return boolean true if swap successfull
+     * @return boolean true if swap successfull.
      */
     public boolean setChange(final int toReplace, final int replaceByThis) {
+       
+
         boolean changed = false;
         for (int i = 0; i < this.setSize; i++) {
             if (this.integers[i] == toReplace) {
@@ -75,14 +77,19 @@
     /** 
      * Removes an integer from set.
      * @param toRemove integer to remove
+     * @return Boolean. True if element was removed.
      */
-    public void remove(final int toRemove) {
+    public boolean remove(final int toRemove) {
 
         int[] replacement = new int[this.setSize - 1];
 
         int addedInt = 0;
         
         for (int i = 0; i < this.setSize; i++) {
+
+            if (addedInt == this.setSize - 1) {
+                return false;
+            }
         
             if (this.integers[i]  !=  toRemove) {
                 replacement[addedInt] = this.integers[i];
@@ -90,25 +97,36 @@
             }
         
         }
+        
 
         this.setSize = this.setSize - 1;
         this.integers = replacement;
+
+        return true;
         
     }
     
     /** 
      * Remove integer by index.
      * @param idx index of integer to be removed
+     * @return True if element was removed.
      */
-    public void removeByIndex(final int idx) {
+    public boolean removeByIndex(final int idx) {
 
-
+        // Sanity check
+        if (idx > (this.setSize - 1) | idx < 0) {
+            return false;
+        }
 
         int[] replacement = new int[this.setSize - 1];
 
         int addedInt = 0;
         
         for (int i = 0; i < this.setSize; i++) {
+
+            if (addedInt == this.setSize - 1) {
+                return false;
+            }
         
             if (i != idx) {
                 replacement[addedInt] = this.integers[i];
@@ -116,10 +134,12 @@
             }
         
         }
+        
 
         this.setSize = this.setSize - 1;
         this.integers = replacement;
         
+        return true;
     }
 
 
