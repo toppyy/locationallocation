@@ -1,19 +1,19 @@
 # Location allocation and the p-median problem
 
 
-## [Design and aim of the project](https://github.com/toppyy/locationallocation/blob/master/documentation/design.md)
+* [Design and aim of the project](https://github.com/toppyy/locationallocation/blob/master/documentation/design.md)
 
-## [Implementation](https://github.com/toppyy/locationallocation/blob/master/documentation/implementation.md)
+* [Implementation](https://github.com/toppyy/locationallocation/blob/master/documentation/implementation.md)
 
-## [Javadoc](https://toppyy.github.io/projects/locationallocation_code_quality/javadoc/index.html)
+* [Javadoc](https://toppyy.github.io/projects/locationallocation_code_quality/javadoc/index.html)
 
-## [Performance and quality tests](https://toppyy.github.io/projects/locationallocation_code_quality/qualityandperformance/QualityAndPerformance.html)
+* [Performance and quality tests](https://toppyy.github.io/projects/locationallocation_code_quality/qualityandperformance/QualityAndPerformance.html)
 
-## [Test summary](https://toppyy.github.io/projects/locationallocation_code_quality/testsummary/index.html)
+* [Test summary](https://toppyy.github.io/projects/locationallocation_code_quality/testsummary/index.html)
 
-## [Test coverage](https://toppyy.github.io/projects/locationallocation_code_quality/jacoco/index.html)
+* [Test coverage](https://toppyy.github.io/projects/locationallocation_code_quality/jacoco/index.html)
   
-## [Checkstyle](https://toppyy.github.io/projects/locationallocation_code_quality/checkstyle/main.html)
+* [Checkstyle](https://toppyy.github.io/projects/locationallocation_code_quality/checkstyle/main.html)
 
 
 ## Weekly reports
