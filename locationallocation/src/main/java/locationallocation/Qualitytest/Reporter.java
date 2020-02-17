@@ -160,10 +160,12 @@ public class Reporter {
 
         for (int i = start; i <= end; i++) {
 
+
+            
             int iterations = iterationsInput;
             
             while (iterations > 0) {
-                this.init();
+                this.init();                
                 for (String algorithmName : algorithmsToTest) {
                     testResults[idx]   = this.runTest(i, algorithmName);
                     idx++;

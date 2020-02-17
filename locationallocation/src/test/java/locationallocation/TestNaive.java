@@ -2,10 +2,12 @@ package locationallocation;
 
 import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
+import locationallocation.Utils.LocationLoader;
 
 import locationallocation.Domain.Naive;
 
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 
 public class TestNaive {
@@ -24,6 +26,31 @@ public class TestNaive {
     
         
         assertArrayEquals("Incorrect facility set as result", expectedAnswer, naive.solve() );
+
+
+        
+    }
+    @Test public void correctCost() {
+        
+        
+        String path = "src/test/resources/testdata_1_demand_locations.csv";
+        LocationLoader testdataDemand = new LocationLoader(path, true);
+        Location[] testDemandLocations = testdataDemand.loadAsLocations();
+
+        path = "src/test/resources/testdata_1_facility_locations.csv";
+        LocationLoader testdataFacility = new LocationLoader(path, true);
+        Location[] testFacilityLocations = testdataFacility.loadAsLocations();
+      
+        // Calculate cost matrix of euclidean distances
+        CostMatrix costs = new CostMatrix(testFacilityLocations, testDemandLocations);
+        Naive naiveSolver = new Naive(costs, 7);
+
+        naiveSolver.solve();
+   
+
+        double expectedCost = 839.68135848364;
+        
+        assertEquals("Incorrect cost as result", expectedCost , naiveSolver.getResultCost(), 0.0001 );
 
 
         

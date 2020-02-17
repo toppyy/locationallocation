@@ -1,7 +1,7 @@
 
 
 package locationallocation.Utils;
-import java.math.BigInteger;
+
 /**
  *   Returns k-sized combinations of a given array.
  */
@@ -12,24 +12,13 @@ public final class Combinations {
     private Combinations() {
     }
 
-
-     /**
-     * Factorial of n.
-     * @param n
-     * @return int
+    /**
+     * Initial size of array holdings combinations.
+     * Counting the number of combinations given n and k would require implementation of BigInteger (if k  > 20).
+     * A simpler solution was chosen: an initial array if created and in expanded if needed.
      */
-    public static BigInteger factorial(final BigInteger n) {
-        BigInteger one = BigInteger.ONE;
-        BigInteger i = n;
-        BigInteger sum = n;
-
-        while (i.compareTo(one) > 0) {
-            i = i.subtract(one);
-            sum = sum.multiply(i);
-            
-        }
-        return sum;
-    }
+    private static final int INITIAL_SIZE = 10000000;
+     
     /** 
      * Creates an array of arrays holding all k combinations of "arr".
      * @param arr array of items 
@@ -48,16 +37,8 @@ public final class Combinations {
             return tmp;
         }
 
-        BigInteger nAsBigInt = BigInteger.valueOf(pit);
-        BigInteger kAsBigInt = BigInteger.valueOf(k);
-        BigInteger factorialOfN = factorial(nAsBigInt);
-        BigInteger factorialOfK = factorial(kAsBigInt);
-
-        BigInteger numberOfCombinations = factorialOfN.divide(factorial(nAsBigInt.subtract(kAsBigInt)).multiply(factorialOfK));
-
-
-        
-        int[][] combinations = new int[numberOfCombinations.intValue()][]; 
+       
+        int[][] combinations = new int[INITIAL_SIZE][]; 
         int[] kt = new int[k]; 
         for (int i = 0; i < k; i++) {
             kt[i] = i + 1;
@@ -65,8 +46,21 @@ public final class Combinations {
        
         int komboCounter = 0, i;
         boolean updated, notFinished = true;
+
+        int combinationsSize = combinations.length;
         
         while (notFinished) {
+
+            // Double array size if needed.
+            if (komboCounter >= combinationsSize) {
+                
+                int[][] newCombinations = new int[combinations.length * 2][];
+                for (int z = 0; z < combinations.length; z++) {
+                    newCombinations[z] = combinations[z].clone();
+                }
+                combinations = newCombinations.clone();
+                combinationsSize = combinations.length;
+            }
             
             combinations[komboCounter] = kt.clone();
             komboCounter = komboCounter + 1;

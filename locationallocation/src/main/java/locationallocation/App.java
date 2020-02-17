@@ -64,13 +64,14 @@ public final class App {
       
 
         // Test quality and performance
-        System.out.println("Running performance tests (~10min)..");
+        System.out.println("Running performance tests..");
 
         Reporter report = new Reporter();
 
 
         // Change path!
         String outputfolder = "//home/";
+        
 
         // Large tests
         
@@ -78,7 +79,7 @@ public final class App {
         int[] limits = {2, 25};
 
         report.setPlimits(limits);
-        Testresult[] largeTests = report.runTests(algorithms, 50, 300, 50);
+        Testresult[] largeTests = report.runTests(algorithms, 50, 300, 10);
 
         
         //report.writeResults(outputfolder + "/large tests with iterations.txt");
@@ -88,10 +89,11 @@ public final class App {
 
 
         String[] algorithmsSmall = {"TB", "GRIA", "Naive"};
-        int[] limitsSmall = {2, 12};
+        int[] limitsSmall = {1, 8};
 
         report.setPlimits(limitsSmall);
-        Testresult[] smallTests = report.runTests(algorithmsSmall, 25, 300, 5);
+
+        Testresult[] smallTests = report.runTests(algorithmsSmall, 20, 100, 10);
         
         //report.writeResults(outputfolder + "/small tests with iterations.txt");
 

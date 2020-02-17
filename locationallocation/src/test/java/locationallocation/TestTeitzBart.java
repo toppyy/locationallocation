@@ -48,4 +48,29 @@ public class TestTeitzBart {
 
         
     }
+    @Test public void correctCost() {
+        
+        
+        String path = "src/test/resources/testdata_1_demand_locations.csv";
+        LocationLoader testdataDemand = new LocationLoader(path, true);
+        Location[] testDemandLocations = testdataDemand.loadAsLocations();
+
+        path = "src/test/resources/testdata_1_facility_locations.csv";
+        LocationLoader testdataFacility = new LocationLoader(path, true);
+        Location[] testFacilityLocations = testdataFacility.loadAsLocations();
+      
+        // Calculate cost matrix of euclidean distances
+        CostMatrix costs = new CostMatrix(testFacilityLocations, testDemandLocations);
+        TeitzBart teitzBartSolver = new TeitzBart(costs, 7);
+
+        teitzBartSolver.solve();
+   
+
+        double expectedCost = 840.3802324929334;
+        
+        assertEquals("Incorrect cost as result", expectedCost , teitzBartSolver.getResultCost(), 0.0001 );
+
+
+        
+    }
 }
