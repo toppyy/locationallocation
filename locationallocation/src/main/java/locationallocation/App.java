@@ -70,7 +70,7 @@ public final class App {
 
 
         // Change path!
-        String outputfolder = "//home/";
+        String outputfolder = "//home/tob/Desktop/dump";
         
 
         // Large tests
@@ -79,23 +79,23 @@ public final class App {
         int[] limits = {2, 25};
 
         report.setPlimits(limits);
-        Testresult[] largeTests = report.runTests(algorithms, 50, 300, 10);
+        Testresult[] largeTests = report.runTests(algorithms, 50, 300, 100);
 
         
-        //report.writeResults(outputfolder + "/large tests with iterations.txt");
+        report.writeResults(outputfolder + "/large tests with iterations.txt");
 
     
         // Small tests
 
 
         String[] algorithmsSmall = {"TB", "GRIA", "Naive"};
-        int[] limitsSmall = {1, 8};
+        int[] limitsSmall = {2, 12};
 
         report.setPlimits(limitsSmall);
 
-        Testresult[] smallTests = report.runTests(algorithmsSmall, 20, 100, 10);
+        Testresult[] smallTests = report.runTests(algorithmsSmall, 25, 300, 10);
         
-        //report.writeResults(outputfolder + "/small tests with iterations.txt");
+        report.writeResults(outputfolder + "/small tests with iterations.txt");
 
         System.out.println("... tests done.");
        

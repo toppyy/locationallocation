@@ -163,8 +163,11 @@ public class Reporter {
 
             
             int iterations = iterationsInput;
+
             
+            System.out.println("i: " + i );
             while (iterations > 0) {
+                
                 this.init();                
                 for (String algorithmName : algorithmsToTest) {
                     testResults[idx]   = this.runTest(i, algorithmName);
