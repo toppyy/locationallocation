@@ -1,6 +1,3 @@
-/**
- * Solves the p-median problem
- */
 package locationallocation;
 
 
@@ -16,7 +13,9 @@ import locationallocation.Qualitytest.Reporter;
 import locationallocation.Qualitytest.Testresult;
 
 
-
+/**
+ * Solves the p-median problem.
+ */
 
 
 public final class App {
@@ -69,6 +68,10 @@ public final class App {
 
         Reporter report = new Reporter();
 
+
+        // Change path!
+        String outputfolder = "//home/";
+
         // Large tests
         
         String[] algorithms = {"TB", "GRIA"};
@@ -77,20 +80,20 @@ public final class App {
         report.setPlimits(limits);
         Testresult[] largeTests = report.runTests(algorithms, 50, 300, 50);
 
-        // Change path!
-        //report.writeResults("/home/large tests with iterations.txt");
+        
+        //report.writeResults(outputfolder + "/large tests with iterations.txt");
 
     
         // Small tests
 
 
         String[] algorithmsSmall = {"TB", "GRIA", "Naive"};
-        int[] limitsSmall = {2, 5};
+        int[] limitsSmall = {2, 12};
 
         report.setPlimits(limitsSmall);
-        Testresult[] smallTests = report.runTests(algorithmsSmall, 10, 300, 10);
-        // Change path!
-        //report.writeResults("/home/small tests with iterations.txt");
+        Testresult[] smallTests = report.runTests(algorithmsSmall, 25, 300, 5);
+        
+        //report.writeResults(outputfolder + "/small tests with iterations.txt");
 
         System.out.println("... tests done.");
        

@@ -86,10 +86,13 @@
         int addedInt = 0;
         
         for (int i = 0; i < this.setSize; i++) {
-
-            if (addedInt == this.setSize - 1) {
+            
+            
+            if (addedInt == this.setSize - 1 & this.integers[i]  !=  toRemove) {
                 return false;
             }
+            
+            
         
             if (this.integers[i]  !=  toRemove) {
                 replacement[addedInt] = this.integers[i];
@@ -113,10 +116,13 @@
      */
     public boolean removeByIndex(final int idx) {
 
+
         // Sanity check
+        
         if (idx > (this.setSize - 1) | idx < 0) {
             return false;
         }
+        
 
         int[] replacement = new int[this.setSize - 1];
 
@@ -124,16 +130,16 @@
         
         for (int i = 0; i < this.setSize; i++) {
 
-            if (addedInt == this.setSize - 1) {
-                return false;
-            }
+            
         
             if (i != idx) {
                 replacement[addedInt] = this.integers[i];
                 addedInt++;
             }
+            
         
         }
+        
         
 
         this.setSize = this.setSize - 1;

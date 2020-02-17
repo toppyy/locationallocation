@@ -1,6 +1,7 @@
 
 
 package locationallocation.Utils;
+import java.math.BigInteger;
 /**
  *   Returns k-sized combinations of a given array.
  */
@@ -12,16 +13,23 @@ public final class Combinations {
     }
 
 
-    /**
-     * Initial size of combinations array.
-     * Instead of calculating the number of combinations and initialing the array with that, this constant is used.
-     * Reason: Factorial of numbers greater than 20 do not fit into long. Factorials are needed to calculate
-     * the binomial coffient (number of combinations).
-     * 
-     * Currently limits the number of combinations possible to create.
+     /**
+     * Factorial of n.
+     * @param n
+     * @return int
      */
-    private static final int INITIAL_SIZE = 10000000;
+    public static BigInteger factorial(final BigInteger n) {
+        BigInteger one = BigInteger.ONE;
+        BigInteger i = n;
+        BigInteger sum = n;
 
+        while (i.compareTo(one) > 0) {
+            i = i.subtract(one);
+            sum = sum.multiply(i);
+            
+        }
+        return sum;
+    }
     /** 
      * Creates an array of arrays holding all k combinations of "arr".
      * @param arr array of items 
@@ -33,15 +41,23 @@ public final class Combinations {
         int pit = arr.length;
 
         // Sanity check
-        if (k>pit) {
+        if (k > pit) {
             System.out.println("K greater than array size. Returning array.");
             int[][] tmp = new int[1][];
             tmp[0] = arr;
             return tmp;
         }
 
+        BigInteger nAsBigInt = BigInteger.valueOf(pit);
+        BigInteger kAsBigInt = BigInteger.valueOf(k);
+        BigInteger factorialOfN = factorial(nAsBigInt);
+        BigInteger factorialOfK = factorial(kAsBigInt);
+
+        BigInteger numberOfCombinations = factorialOfN.divide(factorial(nAsBigInt.subtract(kAsBigInt)).multiply(factorialOfK));
+
+
         
-        int[][] combinations = new int[INITIAL_SIZE][]; 
+        int[][] combinations = new int[numberOfCombinations.intValue()][]; 
         int[] kt = new int[k]; 
         for (int i = 0; i < k; i++) {
             kt[i] = i + 1;
