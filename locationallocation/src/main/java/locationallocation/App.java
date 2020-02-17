@@ -64,7 +64,7 @@ public final class App {
       
 
         // Test quality and performance
-        System.out.println("Running tests..");
+        System.out.println("Running performance tests (~10min)..");
 
         Reporter report = new Reporter();
 
