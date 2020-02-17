@@ -14,9 +14,14 @@ public final class Combinations {
 
     /**
      * Initial size of combinations array.
+     * Instead of calculating the number of combinations and initialing the array with that, this constant is used.
+     * Reason: Factorial of numbers greater than 20 do not fit into long. Factorials are needed to calculate
+     * the binomial coffient (number of combinations).
+     * 
+     * Currently limits the number of combinations possible to create.
      */
     private static final int INITIAL_SIZE = 10000000;
-    
+
     /** 
      * Creates an array of arrays holding all k combinations of "arr".
      * @param arr array of items 
@@ -26,6 +31,14 @@ public final class Combinations {
     public static int[][] createCombinations(final int[] arr, final int k) {
 
         int pit = arr.length;
+
+        // Sanity check
+        if (k>pit) {
+            System.out.println("K greater than array size. Returning array.");
+            int[][] tmp = new int[1][];
+            tmp[0] = arr;
+            return tmp;
+        }
 
         
         int[][] combinations = new int[INITIAL_SIZE][]; 
@@ -89,7 +102,7 @@ public final class Combinations {
 
             for (int b = 0; b < combinations[0].length; b++) {
 
-                // Fix this, but: -1 for all elements in all combinations for indexing purposes.
+                // -1 for all elements in all combinations for indexing purposes.
                 combinationsToReturn[a][b] =  combinations[a][b] - 1;
             
             }
