@@ -22,10 +22,10 @@ public class TestNaive {
 
         int[] expectedAnswer = { 1,3 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        Naive naive = new Naive(costs, 2);
+        Naive naive = new Naive();
     
         
-        assertArrayEquals("Incorrect facility set as result", expectedAnswer, naive.solve() );
+        assertArrayEquals("Incorrect facility set as result", expectedAnswer, naive.solveWithParams(costs, 2) );
 
 
         
@@ -43,9 +43,9 @@ public class TestNaive {
       
         // Calculate cost matrix of euclidean distances
         CostMatrix costs = new CostMatrix(testFacilityLocations, testDemandLocations);
-        Naive naiveSolver = new Naive(costs, 7);
+        Naive naiveSolver = new Naive();
 
-        naiveSolver.solve();
+        naiveSolver.solveWithParams(costs, 7);
    
 
         double expectedCost = 839.68135848364;

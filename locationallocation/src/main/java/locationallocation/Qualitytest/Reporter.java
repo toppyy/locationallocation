@@ -108,18 +108,19 @@ public class Reporter {
      */
     private Testresult runTest(final int p, final String algorithmName) {
 
-        Solver a = new Naive(costs, p);
+        Solver a = new Naive();
         
         if (algorithmName == "TB") {
-            a = new TeitzBart(costs, p);
+            a = new TeitzBart();
         } 
         
         if (algorithmName == "GRIA") {
-            a = new GRIA(costs, p, this.facilities);
+            a = new GRIA();
+            a.setPossibleLocations(this.facilities);
         }
         
         long startTime = System.currentTimeMillis();
-        a.solve();
+        a.solveWithParams(costs, p);
         long endTime = System.currentTimeMillis();
 		long timeElapsed = (endTime - startTime);
 

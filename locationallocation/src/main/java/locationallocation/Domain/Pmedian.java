@@ -118,19 +118,20 @@ public class Pmedian {
      * Use naive solution to solve.
      */
     public void setSolverToNaive() {
-        this.algorithm = new Naive(this.costs, this.p);
+        this.algorithm = new Naive();
     }
     /**
      * Use GRIA to solve.
      */
     public void setSolverToGRIA() {
-        this.algorithm = new GRIA(this.costs, this.p, this.possibleLocations);
+        this.algorithm = new GRIA();
+        this.algorithm.setPossibleLocations(this.possibleLocations);
     }
     /**
      * Use TeitzBart to solve.
      */
     public void setSolverToTeitzBart() {
-        this.algorithm = new TeitzBart(this.costs, this.p);
+        this.algorithm = new TeitzBart();
     }
     /**
      * Choose solver by name.
@@ -153,8 +154,7 @@ public class Pmedian {
      * Solve the problem specified.
      */
     public void solve() {
-        System.out.println("Solving with " + this.algorithm.getName());
-        this.algorithm.solve();
+        this.algorithm.solveWithParams(this.costs, this.p);
 
     }
 

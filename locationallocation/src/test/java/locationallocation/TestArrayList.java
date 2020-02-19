@@ -1,7 +1,7 @@
 
 package locationallocation;
 
-import locationallocation.Utils.ArrayList;;
+import locationallocation.Utils.ArrayList;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

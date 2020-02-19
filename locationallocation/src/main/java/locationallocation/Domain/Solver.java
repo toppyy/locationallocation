@@ -2,6 +2,7 @@
 
 package locationallocation.Domain;
 import locationallocation.Utils.CostMatrix;
+import locationallocation.Utils.Location;
 import locationallocation.Utils.IntegerSet;
 /**
  * Generic solver class.
@@ -31,16 +32,13 @@ public abstract class Solver {
      * Name of algorithm.
      */
     private String nameOfAlgorithm;
+   
 
     /**
      * Constuctor.
-     * @param pnInput Number of facilities to allocate
-     * @param costMatrixInput Matrix that holds costs (eg. distances) between facilities and demand locations.
      * @param nameInput Name of algorithm.
      */
-    public Solver(final CostMatrix costMatrixInput, final int pnInput, final String nameInput) {
-        this.pn = pnInput;
-        this.costMatrix = costMatrixInput;
+    public Solver(final String nameInput) {
         this.nameOfAlgorithm = nameInput;
     }
 
@@ -51,6 +49,13 @@ public abstract class Solver {
      */
     public int getP() {
         return this.pn;
+    }
+    /**
+     * Setter for pn.
+     * @param pInput
+     */
+    public void setP(final int pInput) {
+        this.pn = pInput;
     }
     /**
      * Getter for name.
@@ -74,7 +79,6 @@ public abstract class Solver {
      */
     public void setCosts(final CostMatrix inputCostMatrix) {
         this.costMatrix = inputCostMatrix;
-        System.out.println("Setted!");
     }
     /**
      * Print result.
@@ -136,4 +140,18 @@ public abstract class Solver {
      * @return Set of demand locations to allocate P facilities to.
      */
     public abstract int[] solve();
+
+    /**
+     * Solve with params.
+     * @param pnInput Number of facilities to allocate
+     * @param costMatrixInput Matrix that holds costs (eg. distances) between facilities and demand locations.
+     * @return Set of demand locations to allocate P facilities to.
+     */
+    public abstract int[] solveWithParams(CostMatrix costMatrixInput, int pnInput);
+
+    /**
+     * Setter for possible facilities.
+     * @param facilitiesInput Possible facilities to allocate.
+     */
+    public abstract void setPossibleLocations(Location[] facilitiesInput);
 }

@@ -1,5 +1,6 @@
 # Location allocation and the p-median problem
 
+## Documentation
 
 * [Design and aim of the project](https://github.com/toppyy/locationallocation/blob/master/documentation/design.md)
 
@@ -23,3 +24,4 @@
 * [Weekly report #3](https://github.com/toppyy/locationallocation/blob/master/documentation/week3.md)
 * [Weekly report #4](https://github.com/toppyy/locationallocation/blob/master/documentation/week4.md)
 * [Weekly report #5](https://github.com/toppyy/locationallocation/blob/master/documentation/week5.md)
+* [Weekly report #6](https://github.com/toppyy/locationallocation/blob/master/documentation/week6.md)

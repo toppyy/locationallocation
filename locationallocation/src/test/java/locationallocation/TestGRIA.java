@@ -22,10 +22,14 @@ public class TestGRIA {
 
         int[] expectedAnswer = { 1,3 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        GRIA gria = new GRIA(costs, 2, testLocations1);
+        GRIA gria = new GRIA();
+
+        gria.setPossibleLocations(testLocations1);
+
+        
     
         
-        assertArrayEquals("Incorrect facility set as result", expectedAnswer, gria.solve());
+        assertArrayEquals("Incorrect facility set as result", expectedAnswer, gria.solveWithParams(costs, 2));
 
 
         
@@ -43,9 +47,10 @@ public class TestGRIA {
       
         // Calculate cost matrix of euclidean distances
         CostMatrix costs = new CostMatrix(testFacilityLocations, testDemandLocations);
-        GRIA griaSolver = new GRIA(costs, 7, testFacilityLocations);
+        GRIA griaSolver = new GRIA();
+        griaSolver.setPossibleLocations(testFacilityLocations);
 
-        griaSolver.solve();
+        griaSolver.solveWithParams(costs, 7);
    
 
         double expectedCost = 839.68135848364;

@@ -219,7 +219,6 @@ public class GUI extends JFrame  {
         this.app.loadPossiblelocations("src/test/resources/testdata_1_facility_locations.csv");
         this.app.setP(7);
         this.app.calculateCostMatrix();
-        this.app.setSolver(this.algorithmButton.getSelection().getActionCommand());
         this.updateStatus();
 
     }

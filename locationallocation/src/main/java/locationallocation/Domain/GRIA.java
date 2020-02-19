@@ -13,15 +13,7 @@ import locationallocation.Utils.CostMatrix;
 
 public class GRIA extends Solver {
 
-    /**
-     * Holds weicostsghts. 
-     */
-    private CostMatrix  costs;
-
-    /**
-     * Holds P.
-     */
-    private int pn;
+   
     /**
      * Holds facilities.
      */
@@ -29,19 +21,32 @@ public class GRIA extends Solver {
 
     /**
      * Solves the P-median problem with GRIA algorithm.
+     */
+    public GRIA() {
+        super("GRIA");
+    }
+    /**
+     * Setter for possible facilities.
+     * @param facilitiesInput Possible facilities to allocate.
+     */
+    public void setPossibleLocations(final Location[] facilitiesInput) {
+        this.facilities = facilitiesInput;
+    }
+    /**
+     * Solve with params.
      * @param pnInput Number of facilities to allocate
      * @param costMatrixInput Matrix that holds costs (eg. distances) between facilities and demand locations.
-     * @param facilitiesInput Locations of possible facilities
+     * @return Set of demand locations to allocate P facilities to.
      */
-    public GRIA(final CostMatrix costMatrixInput, final int pnInput, final Location[] facilitiesInput) {
-        super(costMatrixInput, pnInput, "GRIA");
+    public int[] solveWithParams(final CostMatrix costMatrixInput, final int pnInput) {
+        
 
-        this.costs = costMatrixInput;
-        this.pn = pnInput;
-        this.facilities = facilitiesInput;
+        this.setCosts(costMatrixInput);
+        this.setP(pnInput);
+
+        return this.solve();
 
     }
-
 
     /** 
      * Returns a set of facilities consired as the "optimal" locations based on demand.
@@ -57,8 +62,8 @@ public class GRIA extends Solver {
         // Create initial solution and candidates
         // Initial solution is the first P facilities, candidates are facilities not in the initial solution
 
-        for (int i = 0; i < this.costs.getRowCount(); i++) {
-            if (i < this.pn) {
+        for (int i = 0; i < this.getCosts().getRowCount(); i++) {
+            if (i < this.getP()) {
                 solution.add(i);
             } else {
                 candidates.add(i);
@@ -72,7 +77,7 @@ public class GRIA extends Solver {
         // Regional interchange
         IntegerSet returnFromRegionalInterChange = regionalExchange(returnFromGlobalInterchange[0], returnFromGlobalInterchange[1]);
       
-        this.setResultCost(this.costs.costSumForRowset(returnFromRegionalInterChange));
+        this.setResultCost(this.getCosts().costSumForRowset(returnFromRegionalInterChange));
         this.setResult(returnFromRegionalInterChange);
 
         return this.getResult();
@@ -102,7 +107,7 @@ public class GRIA extends Solver {
 
         while (bestObjectiveFunctionLessThanPreviousBest) {
 
-            beforeDrop = this.costs.costSumForRowset(solution);
+            beforeDrop = this.getCosts().costSumForRowset(solution);
    
             // Find best facility to drop
             toDropMin = Double.MAX_VALUE;
@@ -110,7 +115,7 @@ public class GRIA extends Solver {
                 IntegerSet withoutISolution = new IntegerSet(solution);
                 
                 withoutISolution.removeByIndex(i);
-                tmp =  this.costs.costSumForRowset(withoutISolution);
+                tmp =  this.getCosts().costSumForRowset(withoutISolution);
                 
                 if (tmp < toDropMin) {
                     toDropMin = tmp;
@@ -130,7 +135,7 @@ public class GRIA extends Solver {
                 int candidate = candidates.getIntegerByIndex(i);
                 withISolution.add(candidate);
             
-                tmp =  this.costs.costSumForRowset(withISolution);
+                tmp =  this.getCosts().costSumForRowset(withISolution);
  
                 if (tmp < toAddMin) {
                     toAddMin = tmp;
@@ -139,7 +144,7 @@ public class GRIA extends Solver {
             }
 
             solutionAfterDrop.add(toAdd);
-            afterDropAdd = this.costs.costSumForRowset(solutionAfterDrop);
+            afterDropAdd = this.getCosts().costSumForRowset(solutionAfterDrop);
             
             // Cost before vs. after drop & add
             if (afterDropAdd <  beforeDrop) {
@@ -203,7 +208,7 @@ public class GRIA extends Solver {
             // And store which swap provides the lowest overall cost      
             IntegerSet tmpSolution = new IntegerSet(solution);
             tmpSolution.setChange(minFacility, candidate);
-            tmpCost = this.costs.costSumForRowset(tmpSolution);
+            tmpCost = this.getCosts().costSumForRowset(tmpSolution);
             if (tmpCost < minSwapCost) {
                 minSwapCost = tmpCost;
                 minSwapCostReplaceBy = candidate;
@@ -214,7 +219,7 @@ public class GRIA extends Solver {
       
         
         // If found best swap is lower than total cost before regional interchange, persist it
-        if (minSwapCost < this.costs.costSumForRowset(solution)) {
+        if (minSwapCost < this.getCosts().costSumForRowset(solution)) {
             solution.setChange(minSwapCostToReplace, minSwapCostReplaceBy);
         }
         

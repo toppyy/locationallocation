@@ -4,6 +4,7 @@ package locationallocation.Domain;
 
 import static locationallocation.Utils.Combinations.createCombinations;
 import locationallocation.Utils.CostMatrix;
+import locationallocation.Utils.Location;
 /**
  * Naive/brute force solution for the p-median problem.
  *  - Minimize distance by going through all possible combinatios
@@ -14,13 +15,32 @@ public class Naive extends Solver {
 
     /**
      * Solves the P-median problem with a brute force method.
+     */
+    public Naive() {
+        super("Naive");
+    }
+    /**
+     * Solve with params.
      * @param pnInput Number of facilities to allocate
      * @param costMatrixInput Matrix that holds costs (eg. distances) between facilities and demand locations.
+     * @return Set of demand locations to allocate P facilities to.
      */
-    public Naive(final CostMatrix costMatrixInput, final int pnInput) {
-        super(costMatrixInput, pnInput, "Naive");
-    }
+    public int[] solveWithParams(final CostMatrix costMatrixInput, final int pnInput) {
+        
+        this.setCosts(costMatrixInput);
+        this.setP(pnInput);
+        
 
+        return this.solve();
+
+    }
+    /**
+     * Setter for possible facilities. Not needed for Naive.
+     * @param facilitiesInput Possible facilities to allocate.
+     */
+    public void setPossibleLocations(final Location[] facilitiesInput) {
+        
+    }
 
      /** 
      * Returns the optimal set of facility locations based on demand.
@@ -28,6 +48,7 @@ public class Naive extends Solver {
      * @return int[] Array of facility location indices
      */
     public int[] solve() {
+        
 
 
         double  currentMinimum = Double.MAX_VALUE, toTestAgainst;

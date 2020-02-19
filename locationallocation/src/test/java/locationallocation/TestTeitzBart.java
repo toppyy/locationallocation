@@ -23,9 +23,9 @@ public class TestTeitzBart {
 
         int[] expectedAnswer = { 3,1 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        TeitzBart tb1 = new TeitzBart(costs, 2);
+        TeitzBart tb1 = new TeitzBart();
         
-        assertArrayEquals("1. Incorrect facility set as result", expectedAnswer, tb1.solve());
+        assertArrayEquals("1. Incorrect facility set as result", expectedAnswer, tb1.solveWithParams(costs,2));
 
         // 2. 
         String path = "src/test/resources/testdata_1_demand_locations.csv";
@@ -42,9 +42,9 @@ public class TestTeitzBart {
 
         int[] expectedAnswer2 = { 18,8,4 }; // TODO: better test. Also tests order of indices which is not necessary
 
-        TeitzBart tb2 = new TeitzBart(costs2, 3);
+        TeitzBart tb2 = new TeitzBart();
 
-        assertArrayEquals("2. Incorrect facility set as result", expectedAnswer2, tb2.solve()  );
+        assertArrayEquals("2. Incorrect facility set as result", expectedAnswer2, tb2.solveWithParams(costs2,3)  );
 
         
     }
@@ -61,9 +61,9 @@ public class TestTeitzBart {
       
         // Calculate cost matrix of euclidean distances
         CostMatrix costs = new CostMatrix(testFacilityLocations, testDemandLocations);
-        TeitzBart teitzBartSolver = new TeitzBart(costs, 7);
+        TeitzBart teitzBartSolver = new TeitzBart();
 
-        teitzBartSolver.solve();
+        teitzBartSolver.solveWithParams(costs, 7);
    
 
         double expectedCost = 840.3802324929334;

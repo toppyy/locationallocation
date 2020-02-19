@@ -5,6 +5,7 @@ package locationallocation.Domain;
 
 import locationallocation.Utils.IntegerSet;
 import locationallocation.Utils.CostMatrix;
+import locationallocation.Utils.Location;
 /**
 * An implementation of the Teitz and Bart algorithm.
 * Solves the p-median problem.
@@ -15,12 +16,32 @@ public class TeitzBart extends Solver {
 
     /**
      * Solves the P-median problem with TeitzBart algorithm.
+     */
+    public TeitzBart() {
+        super("TeitzBart");
+
+    }
+    /**
+     * Solve with params.
      * @param pnInput Number of facilities to allocate
      * @param costMatrixInput Matrix that holds costs (eg. distances) between facilities and demand locations.
+     * @return Set of demand locations to allocate P facilities to.
      */
-    public TeitzBart(final CostMatrix costMatrixInput, final int pnInput) {
-        super(costMatrixInput, pnInput, "TeitzBart");
+    public int[] solveWithParams(final CostMatrix costMatrixInput, final int pnInput) {
+        
 
+        this.setCosts(costMatrixInput);
+        this.setP(pnInput);
+
+        return this.solve();
+
+    }
+    /**
+     * Setter for possible facilities. Not needed for TeitzBart.
+     * @param facilitiesInput Possible facilities to allocate.
+     */
+    public void setPossibleLocations(final Location[] facilitiesInput) {
+        
     }
 
     /** 
