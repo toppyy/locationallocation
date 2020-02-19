@@ -69,7 +69,8 @@
           "-subpackages",
           "locationallocation.Utils",
           "locationallocation.Domain",
-          "locationallocation.Qualitytest"
+          "locationallocation.Qualitytest",
+          "locationallocation.UI"
         ],
         "problemMatcher": []
       },

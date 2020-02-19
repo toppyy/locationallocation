@@ -1,6 +1,6 @@
 package locationallocation;
 
-
+import locationallocation.Domain.Pmedian;
 import locationallocation.Qualitytest.Reporter;
 import locationallocation.Qualitytest.Testresult;
 

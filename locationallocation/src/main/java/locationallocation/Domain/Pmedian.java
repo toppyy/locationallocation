@@ -1,16 +1,12 @@
-package locationallocation;
+package locationallocation.Domain;
 
 import locationallocation.Utils.LocationLoader;
 import locationallocation.Utils.Location;
 import locationallocation.Utils.CostMatrix;
 
-import locationallocation.Domain.GRIA;
-import locationallocation.Domain.Naive;
-import locationallocation.Domain.Solver;
-import locationallocation.Domain.TeitzBart;
 
 /**
- * Wraps it all together.
+ * Algorithms are accessed through this. Holds application logic.
  */
 
 public class Pmedian {
