@@ -19,7 +19,7 @@ public class TeitzBart extends Solver {
      * @param costMatrixInput Matrix that holds costs (eg. distances) between facilities and demand locations.
      */
     public TeitzBart(final CostMatrix costMatrixInput, final int pnInput) {
-        super(costMatrixInput, pnInput);
+        super(costMatrixInput, pnInput, "TeitzBart");
 
     }
 

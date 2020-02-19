@@ -28,13 +28,20 @@ public abstract class Solver {
     private double resultCost = -1;
 
     /**
+     * Name of algorithm.
+     */
+    private String nameOfAlgorithm;
+
+    /**
      * Constuctor.
      * @param pnInput Number of facilities to allocate
      * @param costMatrixInput Matrix that holds costs (eg. distances) between facilities and demand locations.
+     * @param nameInput Name of algorithm.
      */
-    public Solver(final CostMatrix costMatrixInput, final int pnInput) {
+    public Solver(final CostMatrix costMatrixInput, final int pnInput, final String nameInput) {
         this.pn = pnInput;
         this.costMatrix = costMatrixInput;
+        this.nameOfAlgorithm = nameInput;
     }
 
     
@@ -46,11 +53,28 @@ public abstract class Solver {
         return this.pn;
     }
     /**
+     * Getter for name.
+     * @return Name of algorithm.
+     */
+    public String getName() {
+        return this.nameOfAlgorithm;
+    }
+
+
+    /**
      * Getter for cost matrix.
      * @return Matrix of costs between facilities and demand facilities.
      */
     public CostMatrix getCosts() {
         return this.costMatrix;
+    }
+    /**
+     * Setter for cost matrix.
+     * @param inputCostMatrix 
+     */
+    public void setCosts(final CostMatrix inputCostMatrix) {
+        this.costMatrix = inputCostMatrix;
+        System.out.println("Setted!");
     }
     /**
      * Print result.
@@ -68,7 +92,7 @@ public abstract class Solver {
             System.out.print(i + " ");
         }
         System.out.println("\nCostsum: " + this.resultCost);
-        System.out.println("\n");
+            
     }
     /**
      * Getter for result.

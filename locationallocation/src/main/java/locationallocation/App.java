@@ -1,18 +1,10 @@
 package locationallocation;
 
 
-import locationallocation.Utils.LocationLoader;
-import locationallocation.Utils.Location;
-import locationallocation.Utils.CostMatrix;
-
-import locationallocation.Domain.GRIA;
-import locationallocation.Domain.Naive;
-import locationallocation.Domain.TeitzBart;
-
 import locationallocation.Qualitytest.Reporter;
 import locationallocation.Qualitytest.Testresult;
 
-
+import locationallocation.UI.GUI;
 /**
  * Solves the p-median problem.
  */
@@ -23,83 +15,89 @@ public final class App {
     private App() {
     }
 
-    /**
-     * Number of facilities to choose.
-     */
-    private static final int PN = 7;
 
     public static void main(final String[] args) {
 
-        String path = "src/test/resources/testdata_1_demand_locations.csv";
-        LocationLoader testdataDemand = new LocationLoader(path, true);
-        Location[] testDemandLocations = testdataDemand.loadAsLocations();
+        Pmedian app = new Pmedian();
 
-        path = "src/test/resources/testdata_1_facility_locations.csv";
-        LocationLoader testdataFacility = new LocationLoader(path, true);
-        Location[] testFacilityLocations = testdataFacility.loadAsLocations();
+        // To run a simple example, try: gradle run --args "example 8"
+        if (args.length > 0) {
 
-        
-       
-        
-        // Calculate cost matrix of euclidean distances
-        CostMatrix costs = new CostMatrix(testFacilityLocations, testDemandLocations);
+            if (args[0].equals("example")) {
 
-        TeitzBart teitzbart = new TeitzBart(costs, PN);
-        teitzbart.solve();
-        System.out.println("\nTeitzBart: ");
-        teitzbart.printResults();
+                Integer p = Integer.parseInt(args[1]);
+
+                // Set up
+                app.setP(p);
+                
+                app.loadDemandlocations("src/test/resources/testdata_1_demand_locations.csv");
+                app.loadPossiblelocations("src/test/resources/testdata_1_facility_locations.csv");
+
+                app.calculateCostMatrix();
+
+                // Solve with all algorithms
+                app.setSolverToTeitzBart();
+                app.solve();
+                double costTB = app.getResultCost();
+
+                app.setSolverToGRIA();
+                app.solve();
+                double costGRIA = app.getResultCost();
+
+                app.setSolverToNaive();
+                app.solve();
+                double costNaive = app.getResultCost();
+
+                System.out.println("Total cost of solution:");
+                System.out.println("TB: " + costTB);
+                System.out.println("GRIA: " + costGRIA);
+                System.out.println("Naive: " + costNaive);
+                
+            }
+
+            if (args[0].equals("perf")) {
+
+                String outputfolder = args[1];                
+
+                // Test quality and performance
+                System.out.println("Running performance tests..");
+
+                Reporter report = new Reporter();
+
+                // Large tests
+                
+                String[] algorithms = {"TB", "GRIA"};
+                int[] limits = {2, 25};
+
+                report.setPlimits(limits);
+                Testresult[] largeTests = report.runTests(algorithms, 50, 300, 10);
+
+                
+                report.writeResults(outputfolder + "/large tests with iterations.txt");
+
+            
+                // Small tests
+
+
+                String[] algorithmsSmall = {"TB", "GRIA", "Naive"};
+                int[] limitsSmall = {2, 7};
+
+                report.setPlimits(limitsSmall);
+
+                Testresult[] smallTests = report.runTests(algorithmsSmall, 20, 300, 10);
+                
+                report.writeResults(outputfolder + "/small tests with iterations.txt");
+
+                System.out.println("... tests done.");
+            
+
+            }
     
-        Naive naive = new Naive(costs, PN);
+        } else {
 
-        naive.solve();
-        System.out.println("\nNaive: ");
-        naive.printResults();
+            GUI application = new GUI(app);
 
-        GRIA griaSolver = new GRIA(costs, PN, testFacilityLocations);
-
-        griaSolver.solve();
-        System.out.println("\nGRIA: ");
-        griaSolver.printResults();
-        
-      
-
-        // Test quality and performance
-        System.out.println("Running performance tests..");
-
-        Reporter report = new Reporter();
-
-
-        // Change path!
-        String outputfolder = "//home/tob/Desktop/dump";
-        
-
-        // Large tests
-        
-        String[] algorithms = {"TB", "GRIA"};
-        int[] limits = {2, 25};
-
-        report.setPlimits(limits);
-        Testresult[] largeTests = report.runTests(algorithms, 50, 300, 100);
-
-        
-        report.writeResults(outputfolder + "/large tests with iterations.txt");
-
-    
-        // Small tests
-
-
-        String[] algorithmsSmall = {"TB", "GRIA", "Naive"};
-        int[] limitsSmall = {2, 12};
-
-        report.setPlimits(limitsSmall);
-
-        Testresult[] smallTests = report.runTests(algorithmsSmall, 25, 300, 10);
-        
-        report.writeResults(outputfolder + "/small tests with iterations.txt");
-
-        System.out.println("... tests done.");
-       
-        
-
+            application.start();
+        }
     }
 }

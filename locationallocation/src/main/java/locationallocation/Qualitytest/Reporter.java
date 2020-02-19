@@ -125,8 +125,6 @@ public class Reporter {
 
         return new Testresult(p, this.candidates, this.demandlocations, a.getResultCost(), timeElapsed, algorithmName);
 
-        //return p + ";" + this.candidates + ";" + this.demandlocations + ";" + a.getResultCost() + ";" + timeElapsed + ";" + algorithmName;
-
     }
 
     
@@ -164,8 +162,6 @@ public class Reporter {
             
             int iterations = iterationsInput;
 
-            
-            System.out.println("i: " + i );
             while (iterations > 0) {
                 
                 this.init();                

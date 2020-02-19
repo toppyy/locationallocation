@@ -21,6 +21,7 @@ public final class CostMatrix {
      * @param setB A set of locations
      */
     public CostMatrix(final Location[] setA, final Location[] setB) {
+
         
         double[][] dist = new double[setA.length][setB.length];
 

@@ -34,7 +34,7 @@ public class GRIA extends Solver {
      * @param facilitiesInput Locations of possible facilities
      */
     public GRIA(final CostMatrix costMatrixInput, final int pnInput, final Location[] facilitiesInput) {
-        super(costMatrixInput, pnInput);
+        super(costMatrixInput, pnInput, "GRIA");
 
         this.costs = costMatrixInput;
         this.pn = pnInput;
@@ -49,7 +49,6 @@ public class GRIA extends Solver {
      * @return int[] Array of facility location indices
      */
     public int[] solve() {
-
         
         int[] emptyArray = {};
 
