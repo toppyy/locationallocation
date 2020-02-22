@@ -48,7 +48,7 @@ public class TestNaive {
         naiveSolver.solveWithParams(costs, 7);
    
 
-        double expectedCost = 839.68135848364;
+        double expectedCost = 1217.1475700616218;
         
         assertEquals("Incorrect cost as result", expectedCost , naiveSolver.getResultCost(), 0.0001 );
 

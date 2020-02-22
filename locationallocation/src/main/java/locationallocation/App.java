@@ -40,6 +40,8 @@ public final class App {
                 app.solve();
                 double costTB = app.getResultCost();
 
+                app.writeAllocationsToFile("/home/tob/Desktop/dump/RES_TB.csv");
+
                 app.setSolverToGRIA();
                 app.solve();
                 double costGRIA = app.getResultCost();
@@ -47,6 +49,8 @@ public final class App {
                 app.setSolverToNaive();
                 app.solve();
                 double costNaive = app.getResultCost();
+
+                app.writeAllocationsToFile("/home/tob/Desktop/dump/RES_NAIVE.csv");
 
                 System.out.println("Total cost of solution:");
                 System.out.println("TB: " + costTB);

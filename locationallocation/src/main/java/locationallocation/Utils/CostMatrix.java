@@ -70,26 +70,69 @@ public final class CostMatrix {
      */
     public double costSumForRowset(final int[] rowset) {
         
-        double rtrn = 0, minTmp, tmp;
+        double rtrn = 0, minCost, cost;
 
         
         for (int col = 0; col < this.costs[0].length; col++) {
         
-            minTmp = Double.MAX_VALUE;
+            minCost = Double.MAX_VALUE;
 
             for (int row : rowset) {
 
-                tmp = this.costs[row][col];
-                if (tmp < minTmp) {
-                    minTmp = tmp;
+                cost = this.costs[row][col];
+                if (cost < minCost) {
+                    minCost = cost;
                 }
             }
-            rtrn += minTmp;
+            rtrn += minCost;
             
         }
 
         return rtrn;
     }
+    /**
+     * Find the minumum cost for each column given a set of rows.
+     * Purpose: Allocate demand locations (=columns in the matrix) to possible facility locations given 
+     * a specific solution (= a set of row indices).
+     * @param rowset Rows to find columns for.
+     * @return For each column, the index of row it's allocated to.
+     */
+    public int[] allocateColumnsToRows(final int[] rowset) {
+
+        double minCost, cost;
+        int minRow = 0;
+        int[] rtrn = new int[this.costs[0].length];
+
+        
+        IntegerSet[] allocatedColumns = new IntegerSet[rowset.length];
+        for (int i = 0; i < rowset.length; i++) {
+            allocatedColumns[i] = new IntegerSet();
+        }
+        
+        for (int col = 0; col < this.costs[0].length; col++) {
+
+            minCost = Double.MAX_VALUE;
+            
+            for (int row : rowset) {
+                cost = this.costs[row][col];
+
+                if (cost < minCost) {
+                    minCost = cost;
+
+                    minRow = row; 
+                    
+                }
+            }
+            rtrn[col] = minRow;
+            
+            
+            
+        }
+        return rtrn;
+
+    }
+
+
     /**
      * Getter for cost matrix.
      * @return cost matrix.

@@ -24,6 +24,11 @@
         this.integers = initialObjects.getIntegers(); // Get as int[]
         this.setSize = this.integers.length;
     }
+    public IntegerSet() {
+        int[] empty = new int[0];
+        this.integers = empty;
+        this.setSize = this.integers.length;
+    }
 
     /**
      * Get set size.

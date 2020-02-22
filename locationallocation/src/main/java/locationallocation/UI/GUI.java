@@ -70,6 +70,7 @@ public class GUI extends JFrame  {
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
         JPanel panel4 = new JPanel();
+       
          
         // Set up the title for different panels
         panel1.setBorder(BorderFactory.createTitledBorder("Input:"));
@@ -150,10 +151,6 @@ public class GUI extends JFrame  {
             }
            
         }
-
-        //algorithmButton.addActionListener(new algorithmListener(algorithmButton));
-         
-        
        
 
         // Actions:
@@ -165,10 +162,20 @@ public class GUI extends JFrame  {
         panel1.add(loadExampleBUtton);
         loadExampleBUtton.addActionListener(new ExampleListener());
 
-
-
         statusSolutionCost = new JLabel();
         panel4.add(statusSolutionCost);
+
+        // Write to file
+
+        JTextField outputPathInput = new JTextField(3);
+        outputPathInput.setToolTipText("Path and filename to write output to.");
+        outputPathInput.setText("/home/Documents/user/allocationresults.csv");
+
+        JButton writeResultsButton = new JButton("Write results to file.");
+        panel4.add(outputPathInput);
+        panel4.add(writeResultsButton);
+        
+        writeResultsButton.addActionListener(new WriteResultsListener(outputPathInput));
 
          
         // Add the three panels into the frame
@@ -283,14 +290,34 @@ public class GUI extends JFrame  {
         }
 
         public void actionPerformed(final ActionEvent e) {
-            System.out.println();
 
             String command = button.getActionCommand();
-            System.out.println("Solver set to " + command);       
+                  
             GUI.this.app.setSolver(command);
         }
 
     }
+    /**
+     * Writes results to a file.
+     */
+    class WriteResultsListener implements ActionListener {
+        /**
+         * Is it demand or possible.
+         */
+        private JTextField pathInputField;
+
+        WriteResultsListener(final JTextField pathInput) {
+            this.pathInputField = pathInput;
+        }
+
+        public void actionPerformed(final ActionEvent e) {
+
+            
+            GUI.this.app.writeAllocationsToFile(this.pathInputField.getText());
+        }
+    }
+
+
 
     /**
      * File chooser.

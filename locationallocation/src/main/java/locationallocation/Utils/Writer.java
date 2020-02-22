@@ -19,7 +19,7 @@ public final class Writer {
 
 
     /**
-     * Writes an array of strings to given path.
+     * Used to write strings to flatfiles.
      * @param pathInput Path to write to.
      * @throws IOException Output error
      */
@@ -29,7 +29,33 @@ public final class Writer {
     }
 
     /**
+     * Used to write strings to flatfiles.
+     */
+
+    public Writer() {
+        
+    }
+
+
+    /**
      * Writes an array of strings to given path.
+     * @param pathInput Path to write to.
+     * @param lines Strings to write
+     * @throws IOException Output error
+     */
+
+    public static void writeLines(final String pathInput, final String[] lines) throws IOException  {
+
+        FileWriter fileWriter = new FileWriter(pathInput);
+        
+        for (String st : lines) {
+            fileWriter.write(st);
+        }
+        fileWriter.close();
+    }
+
+    /**
+     * Writes a string.
      * @param st String to write
      * @throws IOException Output error
      */

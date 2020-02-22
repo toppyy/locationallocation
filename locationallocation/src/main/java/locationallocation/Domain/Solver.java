@@ -100,11 +100,20 @@ public abstract class Solver {
     }
     /**
      * Getter for result.
-     * @return Result (a set of integers).
+     * @return Result (a set of integers describing the indexes of chosen locations).
      */
     public int[] getResult() {
         return this.result;
     }
+    /**
+     * Getter for demand facility allocations.
+     * Given a result, to which possible facility each demand facility is allocated to?)
+     * @return  For each demand facility, the index of possible facility location it's allocated to.
+     */
+    public int[] getResultAllocations() {
+        return this.costMatrix.allocateColumnsToRows(this.result);
+    }
+
     /**
      * Setter for result.
      * @param resultInput A set of integers.

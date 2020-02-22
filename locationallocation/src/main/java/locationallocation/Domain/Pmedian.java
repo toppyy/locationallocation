@@ -3,6 +3,8 @@ package locationallocation.Domain;
 import locationallocation.Utils.LocationLoader;
 import locationallocation.Utils.Location;
 import locationallocation.Utils.CostMatrix;
+import static locationallocation.Utils.Writer.writeLines;
+import java.io.IOException;
 
 
 /**
@@ -164,6 +166,44 @@ public class Pmedian {
      */
     public double getResultCost() {
         return this.algorithm.getResultCost();
+    }
+    /**
+     * Get result as demand facility - possible facility pairs.
+     * @return For each demand facility, the index of possible facility location it's allocated to.
+     */
+    public int[] getResultAllocations() {
+        return this.algorithm.getResultAllocations();
+    }
+    /**
+     * Write results (facility allocations) to a file.
+     * @param filePathInput Path to write results to.
+     */
+    public void writeAllocationsToFile(final String filePathInput) {
+
+        int[] allocations = this.getResultAllocations();
+        String[] lines = new String[allocations.length + 1];
+
+        // Header
+        lines[0] = "demandlocation;facility\n";
+        
+        for (int demandLocationIdx = 1; demandLocationIdx < lines.length; demandLocationIdx++) {
+            String line = demandLocationIdx + ";" + allocations[demandLocationIdx - 1] + "\n";
+
+            lines[demandLocationIdx] = line;
+        }
+
+    
+        
+        try {
+            writeLines(filePathInput, lines);
+            System.out.println("Wrote lines to " + filePathInput);
+        } catch (IOException e) { 
+      
+            System.out.println("Problem with writing the results");
+            e.printStackTrace(); 
+          } 
+
+        
     }
 
     /**
