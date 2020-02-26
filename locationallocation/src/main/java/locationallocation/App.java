@@ -18,6 +18,10 @@ public final class App {
 
     public static void main(final String[] args) {
 
+        
+
+
+
         Pmedian app = new Pmedian();
 
         // To run a simple example, try: gradle run --args "example 8"
@@ -40,17 +44,19 @@ public final class App {
                 app.solve();
                 double costTB = app.getResultCost();
 
-                app.writeAllocationsToFile("/home/tob/Desktop/dump/RES_TB.csv");
+                app.writeAllocationsToFile("RES_TB.csv");
 
                 app.setSolverToGRIA();
                 app.solve();
                 double costGRIA = app.getResultCost();
 
+                app.writeAllocationsToFile("RES_GRIA.csv");
+
                 app.setSolverToNaive();
                 app.solve();
                 double costNaive = app.getResultCost();
 
-                app.writeAllocationsToFile("/home/tob/Desktop/dump/RES_NAIVE.csv");
+                app.writeAllocationsToFile("RES_NAIVE.csv");
 
                 System.out.println("Total cost of solution:");
                 System.out.println("TB: " + costTB);

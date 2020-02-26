@@ -14,8 +14,8 @@ public class TestGRIA {
     @Test public void correctFacilitySetSmall() {
         
         
-        Location[] testLocations1    = { new Location(1,1), new Location(5,9) , new Location(2,4),  new Location(11,3) };
-        Location[] testLocations2    = { new Location(7,11), new Location(2,8) , new Location(7,3) };
+        Location[] testLocations1    = { new Location("ID", 1,1), new Location("ID", 5,9) , new Location("ID", 2,4),  new Location("ID", 11,3) };
+        Location[] testLocations2    = { new Location("ID", 7,11), new Location("ID", 2,8) , new Location("ID", 7,3) };
       
         // Calculate distance matrix
         CostMatrix costs = new CostMatrix(testLocations1, testLocations2);
@@ -53,7 +53,7 @@ public class TestGRIA {
         griaSolver.solveWithParams(costs, 7);
    
 
-        double expectedCost = 1217.1475700616218;
+        double expectedCost = 1221.6077248586198;
         
         assertEquals("Incorrect cost as result", expectedCost , griaSolver.getResultCost(), 0.0001 );
 

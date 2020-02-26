@@ -31,6 +31,9 @@
 # 
 .gitignore
 
+# Possible results
+/locationallocation/RES_*.csv
+
 
 # Dead code storage
 /dump

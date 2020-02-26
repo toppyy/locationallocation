@@ -21,6 +21,7 @@ public class LocationLoader  {
      * Store information of existance of header.
      */
     private boolean header;
+    
 
     /**
      * Reads flat files into sets of locations.
@@ -32,6 +33,7 @@ public class LocationLoader  {
         this.file =  new File(pathInput); 
         this.header = headerInput;
     }
+    
 
     
     /** 
@@ -61,6 +63,10 @@ public class LocationLoader  {
     /** 
      * Read a file as locations.
      * Reads a flat file into a list of rows. Converts each row into a Location.
+     * Expected format is:
+     *  id;x;y;w
+     * Content: id for location, x- and y-coordinates and optional weight.
+     * 
      * @return Location[]
      */
     public Location[] loadAsLocations() {
@@ -79,12 +85,22 @@ public class LocationLoader  {
 
 
             for (int i = startRow; i < lines.size(); i++) {
+
                 String[] columns = lines.get(i).split(";");
+
+                String id = columns[0];
 
                 double x = Double.parseDouble(columns[1]);
                 double y = Double.parseDouble(columns[2]);
 
-                locations[i - startRow] = new Location(x, y);
+                double w = 1;
+
+                
+                if (columns.length > 3) {
+                    w = Double.parseDouble(columns[3]);
+                }
+
+                locations[i - startRow] = new Location(id, x, y, w);
             }
 
             return locations;

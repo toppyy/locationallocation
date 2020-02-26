@@ -1,6 +1,5 @@
 package locationallocation.UI;
 
-import java.io.File;
 
 import locationallocation.Domain.Pmedian;
 
@@ -12,13 +11,18 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import locationallocation.UI.ActionListeners.SolveListener;
+import locationallocation.UI.ActionListeners.ChoosePListener;
+import locationallocation.UI.ActionListeners.InputFileChooserListener;
+import locationallocation.UI.ActionListeners.WriteResultsListener;
+import locationallocation.UI.ActionListeners.AlgorithmListener;
 
 
 /**
@@ -54,7 +58,7 @@ public class GUI extends JFrame  {
         this.app = inputApp;
 
     }
-   
+  
     /**
      * Run application.
      */
@@ -96,8 +100,8 @@ public class GUI extends JFrame  {
         JButton inputDemandLocations = new JButton("Load demand locations");        
         JButton inputPossibleFacilities = new JButton("Load possible facility locations");
 
-        inputDemandLocations.addActionListener(new InputFileChooserListener("demand"));
-        inputPossibleFacilities.addActionListener(new InputFileChooserListener("possible"));
+        inputDemandLocations.addActionListener(new InputFileChooserListener(this, this.app, "demand"));
+        inputPossibleFacilities.addActionListener(new InputFileChooserListener(this, this.app, "possible"));
 
         // Texts for inputs
         this.statusDemandLocations = new JLabel();
@@ -117,8 +121,10 @@ public class GUI extends JFrame  {
             
         JTextField pChooser = new JTextField(3);
         pChooser.setToolTipText("Choose the number of facilities to allocate.");
+        
+        
+        pChooser.addActionListener(new ChoosePListener(this, this.app, pChooser));
 
-        pChooser.addActionListener(new ChoosePListener(pChooser));
 
         this.statusP = new JLabel();
         
@@ -126,15 +132,12 @@ public class GUI extends JFrame  {
         panel2.add(statusP);
         
         // Radio buttons for algorithm choice
-        //Group for the radio buttons.
+        // Group for the radio buttons.
         this.algorithmButton = new ButtonGroup();
 
         String[] algorithms = this.app.getAlgorithms();
 
-        
 
-        //JRadioButton[] algorithmButtons = new JRadioButton[algorithms.length];
-        //algorithmButtons[i] = createRadioButton(algorithms[i]);
 
         for (int i = 0; i < algorithms.length; i++) {
             JRadioButton button = createRadioButton(algorithms[i]);
@@ -142,7 +145,7 @@ public class GUI extends JFrame  {
             algorithmButton.add(button);
             panel3.add(button);
 
-            button.addActionListener(new AlgorithmListener(button));
+            button.addActionListener(new AlgorithmListener(this.app, button));
 
             // Select first button;
             if (i == 0) {
@@ -156,7 +159,7 @@ public class GUI extends JFrame  {
         // Actions:
         JButton solveButton = new JButton("Solve!");
         panel4.add(solveButton);
-        solveButton.addActionListener(new SolveListener());
+        solveButton.addActionListener(new SolveListener(this, this.app));
 
         JButton loadExampleBUtton = new JButton("Load example");
         panel1.add(loadExampleBUtton);
@@ -175,7 +178,7 @@ public class GUI extends JFrame  {
         panel4.add(outputPathInput);
         panel4.add(writeResultsButton);
         
-        writeResultsButton.addActionListener(new WriteResultsListener(outputPathInput));
+        writeResultsButton.addActionListener(new WriteResultsListener(this.app, outputPathInput));
 
          
         // Add the three panels into the frame
@@ -191,32 +194,21 @@ public class GUI extends JFrame  {
         // Set the window to be visible as the default to be false
         
         frame.setVisible(true);
-
-        GUI.this.updateStatus();
         
     }
 
-    /**
-     * Update input status.
-     */
-    private void updateStatus() {
-        this.statusDemandLocations.setText("Number of demand locations: " + this.app.getNumberOfDemandLocations());
-        this.statusPossibleLocations.setText("Number of possible locations: " + this.app.getNumberOfPossibleLocations());
-        this.statusP.setText("Number of facilities to allocate: " + this.app.getP());
-        this.statusSolutionCost.setText("Cost: " + this.app.getResultCost());
-        
 
-        // If both locations are updated, calcucate distance matrix
+    /**
+     * Calculate cost matrix.
+     */
+    public void calculateCostMatrix() {
         if (this.app.getNumberOfDemandLocations() > 0 & this.app.getNumberOfPossibleLocations() > 0) {
             this.app.calculateCostMatrix();
             
         }
-
         this.statusCostMatrix.setText("Costmatrix exists: " + this.app.costMatrixExists());
-
-        // Chosen algorithm
-        
     }
+
     /**
      * Load example problem and set parameters.
      */
@@ -225,24 +217,13 @@ public class GUI extends JFrame  {
         this.app.loadDemandlocations("src/test/resources/testdata_1_demand_locations.csv");
         this.app.loadPossiblelocations("src/test/resources/testdata_1_facility_locations.csv");
         this.app.setP(7);
-        this.app.calculateCostMatrix();
-        this.updateStatus();
+        this.calculateCostMatrix();
+        this.updateStatus("locations");
+        this.updateStatus("P");
 
     }
 
-    /**
-     * Solve problem.
-     */
-    class SolveListener implements ActionListener {
-        public void actionPerformed(final ActionEvent e) {
-
-            
-            GUI.this.app.solve();
-            GUI.this.updateStatus();
-
-            
-        }
-    }
+    
     /**
      * Load example data to app. Dev-purposes in mind.
      */
@@ -255,106 +236,6 @@ public class GUI extends JFrame  {
     }
 
     /**
-     * P-chooser listener.
-     */
-    class ChoosePListener implements ActionListener {
-
-        /**
-         * Input field for P.
-         */
-        private JTextField pInputField;
-
-        ChoosePListener(final JTextField pInput) {
-            this.pInputField = pInput;
-        }
-        public void actionPerformed(final ActionEvent e) {
-
-            Integer chosenP = Integer.parseInt(this.pInputField.getText());
-            GUI.this.app.setP(chosenP);
-
-            GUI.this.updateStatus();
-
-        }
-    }
-    /**
-     * Action listener for radio button choosing the algorithm to use.
-     */
-    class AlgorithmListener implements ActionListener {
-        /**
-         * Holds button.
-         */
-        private JRadioButton button;
-
-        AlgorithmListener(final JRadioButton buttonInput) {
-            this.button = buttonInput;
-        }
-
-        public void actionPerformed(final ActionEvent e) {
-
-            String command = button.getActionCommand();
-                  
-            GUI.this.app.setSolver(command);
-        }
-
-    }
-    /**
-     * Writes results to a file.
-     */
-    class WriteResultsListener implements ActionListener {
-        /**
-         * Is it demand or possible.
-         */
-        private JTextField pathInputField;
-
-        WriteResultsListener(final JTextField pathInput) {
-            this.pathInputField = pathInput;
-        }
-
-        public void actionPerformed(final ActionEvent e) {
-
-            
-            GUI.this.app.writeAllocationsToFile(this.pathInputField.getText());
-        }
-    }
-
-
-
-    /**
-     * File chooser.
-     */
-    class InputFileChooserListener implements ActionListener {
-        /**
-         * Is it demand or possible.
-         */
-        private String which;
-
-        InputFileChooserListener(final String whichInput) {
-            this.which = whichInput;
-        }
-
-        public void actionPerformed(final ActionEvent e) {
-            
-            JFileChooser fileChooser = new JFileChooser();
-
-            int result = fileChooser.showOpenDialog(GUI.this);
-            if (result == JFileChooser.APPROVE_OPTION) {
-
-                File selectedFile = fileChooser.getSelectedFile();
-                if (this.which.equals("demand")) {
-                    GUI.this.app.loadDemandlocations(selectedFile.getAbsolutePath());
-                }
-                if (this.which.equals("possible")) {
-                    GUI.this.app.loadPossiblelocations(selectedFile.getAbsolutePath());
-                }
-
-                GUI.this.updateStatus();
-
-            }
-
-            
-        }
-    }
-    /**
      * Radio button.
      * @param text A text to display and set as action command.
      * @return A radiobutton.
@@ -365,7 +246,24 @@ public class GUI extends JFrame  {
         return butt;
     }
 
-    
+
+    /**
+     * Updates status texts based on input.
+     * @param which
+     */
+    public void updateStatus(final String which) {
+        if (which == "P") {
+            this.statusP.setText("Number of facilities to allocate: " + this.app.getP());
+        }
+        if (which == "cost") {
+            this.statusSolutionCost.setText("Cost: " + this.app.getResultCost());
+        }
+        if (which == "locations") {
+            this.statusDemandLocations.setText("Number of demand locations: " + this.app.getNumberOfDemandLocations());
+            this.statusPossibleLocations.setText("Number of possible locations: " + this.app.getNumberOfPossibleLocations());
+        }
+    }
   
     
 }
+

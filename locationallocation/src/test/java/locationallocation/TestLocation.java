@@ -10,7 +10,7 @@ public class TestLocation {
         
         double[] coords = { 1.2, 9.7 };
         
-        Location testLocation = new Location(coords[0],coords[1]);
+        Location testLocation = new Location("ID", coords[0],coords[1]);
 
        
 

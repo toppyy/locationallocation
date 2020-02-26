@@ -86,11 +86,11 @@ public class Reporter {
 
 
         for (int i = 0; i < candidates; i++) {
-            testLocations1[i] = new Location(this.randomNumber(), this.randomNumber());
+            testLocations1[i] = new Location("IDC" + i, this.randomNumber(), this.randomNumber());
         }
 
         for (int i = 0; i < demandlocations; i++) {
-            testLocations2[i] = new Location(this.randomNumber(), this.randomNumber());
+            testLocations2[i] = new Location("IDD" + i, this.randomNumber(), this.randomNumber());
         }
       
         // Calculate distance matrix

@@ -176,6 +176,7 @@ public class Pmedian {
     }
     /**
      * Write results (facility allocations) to a file.
+     * Output is a CSV-file containing two columns: one for demand location and another for the facility it's allocated to.
      * @param filePathInput Path to write results to.
      */
     public void writeAllocationsToFile(final String filePathInput) {
@@ -186,10 +187,16 @@ public class Pmedian {
         // Header
         lines[0] = "demandlocation;facility\n";
         
-        for (int demandLocationIdx = 1; demandLocationIdx < lines.length; demandLocationIdx++) {
-            String line = demandLocationIdx + ";" + allocations[demandLocationIdx - 1] + "\n";
+        for (int demandLocationIdx = 0; demandLocationIdx < this.demandLocations.length; demandLocationIdx++) {
 
-            lines[demandLocationIdx] = line;
+            int idx = allocations[demandLocationIdx];
+
+            String demandLocationId     = this.demandLocations[demandLocationIdx].getId();
+            String facilityLocationId   = this.possibleLocations[idx].getId();
+
+            String line = demandLocationId + ";" + facilityLocationId + "\n";
+
+            lines[demandLocationIdx + 1] = line;
         }
 
     

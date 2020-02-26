@@ -29,7 +29,7 @@ public final class CostMatrix {
 
             for (int idxB = 0; idxB < setB.length; idxB++) {
             
-                dist[idxA][idxB]  = this.calculateEuclideanDistance(setA[idxA], setB[idxB]);
+                dist[idxA][idxB]  = this.calculateEuclideanDistance(setA[idxA], setB[idxB]) * setA[idxA].getW() * setB[idxB].getW();
 
             }
         }
@@ -103,11 +103,6 @@ public final class CostMatrix {
         int minRow = 0;
         int[] rtrn = new int[this.costs[0].length];
 
-        
-        IntegerSet[] allocatedColumns = new IntegerSet[rowset.length];
-        for (int i = 0; i < rowset.length; i++) {
-            allocatedColumns[i] = new IntegerSet();
-        }
         
         for (int col = 0; col < this.costs[0].length; col++) {
 
