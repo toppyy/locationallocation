@@ -13,11 +13,9 @@ import locationallocation.Utils.Location;
 public class Naive extends Solver {
 
 
-    /**
-     * Solves the P-median problem with a brute force method.
-     */
+
     public Naive() {
-        super("Naive");
+        super("Naive"); // Name of algorithm.
     }
     /**
      * Solve with params.

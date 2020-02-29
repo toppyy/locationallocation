@@ -5,14 +5,8 @@ package locationallocation.Utils;
 */
 
 public class Location {
-    /**
-     * Id.
-     */
-    private final String id;
 
-    /**
-     * Coordinates and weight of location.
-     */
+    private final String id;
     private final double x, y, w;
 
     /**
@@ -52,7 +46,6 @@ public class Location {
 
     
     public final double[] getCoordinates()  {
-
         double[] rtrn = {this.x, this.y};
         return rtrn;
     }

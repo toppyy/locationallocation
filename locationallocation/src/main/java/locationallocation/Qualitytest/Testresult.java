@@ -8,24 +8,9 @@ package locationallocation.Qualitytest;
 public class Testresult {
 
 
-    /**
-     * Inputs.
-     */
     private int p, candidates, demandlocations;
-
-    /**
-     * Cost.
-     */
     private double cost;
-
-    /**
-     * Runtime.
-     */
     private long timeElapsed;
-
-    /**
-     * Input strings.
-     */
     private String algorithmName;
 
     /**
@@ -62,52 +47,29 @@ public class Testresult {
     }
 
 
-    /**
-     * Getter for P.
-     * @return P.
-     */
-    public int getP() {
+    public final int getP() {
         return this.p;
     }
 
-    /**
-     * Getter for candidates.
-     * @return candidates.
-     */
-    public int getCandidates() {
+    public final int getCandidates() {
         return this.candidates;
     }
 
-    /**
-     * Getter for demandlocations.
-     * @return demandlocations.
-     */
-    public int getDemandlocations() {
+    public final int getDemandlocations() {
         return this.demandlocations;
     }
 
 
-    /**
-     * Getter for cost.
-     * @return cost.
-     */
-    public double getCost() {
+    public final double getCost() {
         return this.cost;
     }
 
-    /**
-     * Getter for time elapsed.
-     * @return Time elapsed.
-     */
-    public long getTimeElapsed() {
+
+    public final long getTimeElapsed() {
         return this.timeElapsed;
     }
 
-     /**
-     * Getter for algorithm.
-     * @return Algorithm.
-     */
-    public String getAlgorithmName() {
+    public final String getAlgorithmName() {
         return this.algorithmName;
     }
 

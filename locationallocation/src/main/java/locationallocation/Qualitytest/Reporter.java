@@ -2,7 +2,7 @@ package locationallocation.Qualitytest;
 
 import locationallocation.Utils.CostMatrix;
 import locationallocation.Utils.Location;
-import locationallocation.Utils.Writer;
+import static locationallocation.Utils.Writer.writeLines;
 
 import java.util.Random;
 import java.io.IOException;
@@ -20,35 +20,21 @@ import locationallocation.Domain.TeitzBart;
 public class Reporter {
 
     /**
-     * Bunds for values of P to be tested.
+     * Bounds for values of P to be tested.
      */
     private int[] pLimits;
 
-    /**
-     * Cost matrix to test against.
-     */
+
     private CostMatrix costs;
-
-    /**
-     * Candidate facilities.
-     */
     private Location[] facilities;
-
-
-    /**
-     * Random number generation.
-     */
     private Random random;
+    private int candidates, demandlocations;
 
     /**
      * Test results as a set of strings for writing to a flatfile.
      */
     private Testresult[] results;
 
-    /**
-     * Number of candidate facilities and demand locations.
-     */
-    private int candidates, demandlocations;
 
     /**
      * Writes data on performance and quality.
@@ -187,16 +173,16 @@ public class Reporter {
        
         try {
             String filename = outputpathInput;
-            Writer w = new Writer(filename);
+            String[] lines = new String[this.results.length];
            
-            for (Testresult s : this.results) {
+            for (int i = 0; i < this.results.length; i++) {
                 
-                w.write(s.toString() + "\n");
+                lines[i] = this.results[i].toString() + "\n";
               
             }
 
-            w.close();
-            System.out.println("Wrote results to: " + filename);
+            
+            writeLines(filename, lines);
 
         } catch (IOException e) { 
       

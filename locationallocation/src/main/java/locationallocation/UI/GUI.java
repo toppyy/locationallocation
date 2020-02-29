@@ -35,20 +35,15 @@ import locationallocation.UI.ActionListeners.AlgorithmListener;
 
 public class GUI extends JFrame  {
 
-    /**
-     * Class containing application logic.
-     */
-    private Pmedian app;
 
+    private Pmedian app;
+    private ButtonGroup algorithmButton;
+    
     /**
      * Holds status of GUI.
      */
     private JLabel statusDemandLocations, statusPossibleLocations, statusP, statusSolutionCost, statusCostMatrix;
 
-    /**
-     * Button group specifying algorithm.
-     */
-    private ButtonGroup algorithmButton;
 
     /**
      * Graphical interface for application.

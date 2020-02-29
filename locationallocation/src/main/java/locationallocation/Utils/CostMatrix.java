@@ -9,8 +9,11 @@ public final class CostMatrix {
     /**
      * Holds the matrix.
      */
+    
     private double[][] costs;
-
+    /**
+     * Default constructor.
+     */
     public CostMatrix() {
 
     }

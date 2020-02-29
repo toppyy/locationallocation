@@ -7,23 +7,32 @@
 
  public class IntegerSet {
 
-    /**
-     * Holds the set of integers.
-     */
+
     private int[] integers; 
     /**
      * Holds the set size for convenience.
      */
     private int setSize;
 
+    /**
+     * Create a set from an array of integers.
+     * @param initialObjects Integers to place in set.
+     */
     public IntegerSet(final int[] initialObjects) {
         this.integers = initialObjects;
         this.setSize = initialObjects.length;
     }
+    /**
+     * Create a set from another set.
+     * @param initialObjects Integers to place in set.
+     */
     public IntegerSet(final IntegerSet initialObjects) {
         this.integers = initialObjects.getIntegers(); // Get as int[]
         this.setSize = this.integers.length;
     }
+    /**
+     * Create an empty set.
+     */
     public IntegerSet() {
         int[] empty = new int[0];
         this.integers = empty;
@@ -145,8 +154,6 @@
         
         }
         
-        
-
         this.setSize = this.setSize - 1;
         this.integers = replacement;
         
@@ -206,21 +213,6 @@
             return true;
         }
         return rtrn;
-    }
-
-
-    
-    /** 
-     * Print set preceded by a message.
-     * @param message message to be printed before the set
-     */
-    
-    public void print(final String message) {
-        System.out.println("\n " + message + " ");
-        for (int i : this.integers) {
-            System.out.print(i + ", ");
-        }
-        System.out.println("\n");
     }
     
  }

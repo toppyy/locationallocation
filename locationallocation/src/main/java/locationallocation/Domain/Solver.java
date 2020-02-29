@@ -13,24 +13,11 @@ public abstract class Solver {
     /**
      * Holds P: number of facilities to allocate.
      */
-    private int pn;
-    /**
-     * Holds weights between facilities and demand locations.
-     */
+    private int p;
+
     private CostMatrix costMatrix;
-
-    /**
-     * Holds result after solve.
-     */
     private int[] result;
-    /**
-     * Holds cost of result.
-     */
     private double resultCost = -1;
-
-    /**
-     * Name of algorithm.
-     */
     private String nameOfAlgorithm;
    
 
@@ -42,72 +29,52 @@ public abstract class Solver {
         this.nameOfAlgorithm = nameInput;
     }
 
-    
-    /**
-     * Getter for pn.
-     * @return P
-     */
-    public int getP() {
-        return this.pn;
+    public final int getP() {
+        return this.p;
     }
-    /**
-     * Setter for pn.
-     * @param pInput
-     */
-    public void setP(final int pInput) {
-        this.pn = pInput;
+
+    public final void setP(final int pInput) {
+        this.p = pInput;
     }
-    /**
-     * Getter for name.
-     * @return Name of algorithm.
-     */
-    public String getName() {
+
+    public final String getName() {
         return this.nameOfAlgorithm;
     }
 
 
-    /**
-     * Getter for cost matrix.
-     * @return Matrix of costs between facilities and demand facilities.
-     */
-    public CostMatrix getCosts() {
+    public final CostMatrix getCosts() {
         return this.costMatrix;
     }
-    /**
-     * Setter for cost matrix.
-     * @param inputCostMatrix 
-     */
-    public void setCosts(final CostMatrix inputCostMatrix) {
+
+
+    public final void setCosts(final CostMatrix inputCostMatrix) {
         this.costMatrix = inputCostMatrix;
     }
-    /**
-     * Print result.
-     */
-    public void printResults() {
+
+    public final void printResults() {
 
         if (resultCost < 0) {
             System.out.println("No results yet. Try .solve() first.");
             return;
         }
 
-        
-        
         for (int i : this.result) {
             System.out.print(i + " ");
         }
         System.out.println("\nCostsum: " + this.resultCost);
             
     }
+
     /**
      * Getter for result.
      * @return Result (a set of integers describing the indexes of chosen locations).
      */
-    public int[] getResult() {
+    public final int[] getResult() {
         return this.result;
     }
     /**
      * Getter for demand facility allocations.
-     * Given a result, to which possible facility each demand facility is allocated to?)
+     * Given a result, to which possible facility each demand facility is allocated to?
      * @return  For each demand facility, the index of possible facility location it's allocated to.
      */
     public int[] getResultAllocations() {
@@ -128,18 +95,13 @@ public abstract class Solver {
     public void setResult(final IntegerSet resultInput) {
         this.result = resultInput.getIntegers();
     }
-    /**
-     * Getter for result cost.
-     * @return Sum of result costs.
-     */
-    public double getResultCost() {
+   
+
+    public final double getResultCost() {
         return this.resultCost;
     }
-    /**
-     * Setter for result cost.
-     * @param resultCostInput Sum of result costs.
-     */
-    public void setResultCost(final double resultCostInput) {
+  
+    public final void setResultCost(final double resultCostInput) {
         this.resultCost = resultCostInput;
     }
     

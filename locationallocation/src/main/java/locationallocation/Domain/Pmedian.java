@@ -13,25 +13,11 @@ import java.io.IOException;
 
 public class Pmedian {
 
-    /**
-     * Chosen algorithm.
-     */
+
     private Solver algorithm;
-    /**
-     * Demand locations.
-     */
     private Location[] demandLocations;
-    /**
-     * Possible locations.
-     */
     private Location[] possibleLocations;
-    /**
-     * Cost matrix.
-     */
     private CostMatrix costs;
-    /**
-     * P (=number of facilities to choose). 
-     */
     private int p;
 
     /**
@@ -51,49 +37,34 @@ public class Pmedian {
         this.algorithms[2] =  "GRIA";
     }
     
-    /** 
-     * Set P (=number of facilities to choose).
-     * @param inputP
-     */
-    public void setP(final int inputP) {
+
+    public final void setP(final int inputP) {
         this.p = inputP;
     }
-    /** 
-     * Getter for P (=number of facilities to choose).
-     * @return int p
-     */
-    public int getP() {
+
+    public final int getP() {
         return this.p;
     }
 
-    /** 
-     * Load a file as demand locations.
-     * @param path
-     */
-    public void loadDemandlocations(final String path) {
+    public final String[] getAlgorithms() {
+        return this.algorithms;
+    }
+
+    public final void loadDemandlocations(final String path) {
         this.demandLocations = this.loadLocations(path);
         
     }
-    /**
-     * Getter for number of demand locations.
-     * @return int Number of loaded demand locations.
-     */
-    public int getNumberOfDemandLocations() {
+
+    public final int getNumberOfDemandLocations() {
         return this.demandLocations.length;
     }
     
-    /** 
-     * Load a file as possible facility locations.
-     * @param path
-     */
-    public void loadPossiblelocations(final String path) {
+
+    public final void loadPossiblelocations(final String path) {
         this.possibleLocations = this.loadLocations(path);
     }
-    /**
-     * Getter for number of possible facility locations.
-     * @return int Number of loaded possible locations.
-     */
-    public int getNumberOfPossibleLocations() {
+
+    public final int getNumberOfPossibleLocations() {
         return this.possibleLocations.length;
     }
     
@@ -108,38 +79,34 @@ public class Pmedian {
         return locations;
     }
 
-    /**
-     * Calculate cost matrix.
-     */
-    public void calculateCostMatrix() {
+
+    public final void calculateCostMatrix() {
 
         this.costs = new CostMatrix(this.possibleLocations, this.demandLocations);
         
     }
-    /**
-     * Use naive solution to solve.
-     */
-    public void setSolverToNaive() {
+
+
+    public final boolean costMatrixExists() {
+        return this.costs != null;
+    }
+
+
+
+    public final void setSolverToNaive() {
         this.algorithm = new Naive();
     }
-    /**
-     * Use GRIA to solve.
-     */
-    public void setSolverToGRIA() {
+
+    public final void setSolverToGRIA() {
         this.algorithm = new GRIA();
         this.algorithm.setPossibleLocations(this.possibleLocations);
     }
-    /**
-     * Use TeitzBart to solve.
-     */
-    public void setSolverToTeitzBart() {
+
+    public final void setSolverToTeitzBart() {
         this.algorithm = new TeitzBart();
     }
-    /**
-     * Choose solver by name.
-     * @param chosenAlgorithm Algorithm. One of three: Naive, TeitzBart, GRIA.
-     */
-    public void setSolver(final String chosenAlgorithm) {
+
+    public final void setSolver(final String chosenAlgorithm) {
         if (chosenAlgorithm == "Naive") {
             this.setSolverToNaive();
         }
@@ -152,21 +119,15 @@ public class Pmedian {
     }
 
 
-    /**
-     * Solve the problem specified.
-     */
-    public void solve() {
+    public final void solve() {
         this.algorithm.solveWithParams(this.costs, this.p);
 
     }
 
-    /**
-     * Get cost of solution.
-     * @return cost of solution.
-     */
-    public double getResultCost() {
+    public final double getResultCost() {
         return this.algorithm.getResultCost();
     }
+
     /**
      * Get result as demand facility - possible facility pairs.
      * @return For each demand facility, the index of possible facility location it's allocated to.
@@ -213,20 +174,6 @@ public class Pmedian {
         
     }
 
-    /**
-     * Check existance of cost matrix.
-     * @return True/false if cost matrix is loaded.
-     */
-    public boolean costMatrixExists() {
-        return this.costs != null;
-    }
 
-    /**
-     * Getter for algorithms.
-     * @return Algorithms as strings;
-     */
-    public String[] getAlgorithms() {
-        return this.algorithms;
-    }
 
 }

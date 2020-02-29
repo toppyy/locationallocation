@@ -14,16 +14,10 @@ import locationallocation.Utils.CostMatrix;
 public class GRIA extends Solver {
 
    
-    /**
-     * Holds facilities.
-     */
     private Location[] facilities;
 
-    /**
-     * Solves the P-median problem with GRIA algorithm.
-     */
     public GRIA() {
-        super("GRIA");
+        super("GRIA"); // Name of algorithm.
     }
     /**
      * Setter for possible facilities.

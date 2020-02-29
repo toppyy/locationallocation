@@ -8,18 +8,11 @@ package locationallocation.Utils;
 
 public class ArrayList {
     
-    /**
-     * Array to grow.
-     */
+
     private String[] array;
-    /**
-     * Size of array.
-     */
     private int size;
-    /**
-     * Elements in array currently.
-     */
     private int elementsInArray;
+
     /**
      * The number of elements to increment array when full/empty.
      */
@@ -100,11 +93,4 @@ public class ArrayList {
         return this.elementsInArray;
     }
 
-    /**
-     * Prints info.
-     */
-    public void printMe() {
-        System.out.println("Size: " + this.size);
-        System.out.println("Elements: " + this.elementsInArray);
-    }
 }

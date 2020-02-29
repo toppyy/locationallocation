@@ -13,16 +13,10 @@ import java.io.IOException;
 
 
 public class LocationLoader  {
-    /**
-     * Holds the file to be read.
-     */
+    
     private File file;
-    /**
-     * Store information of existance of header.
-     */
     private boolean header;
     
-
     /**
      * Reads flat files into sets of locations.
      * @param pathInput path of flatfile

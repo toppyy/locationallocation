@@ -14,11 +14,9 @@ import locationallocation.Utils.Location;
 
 public class TeitzBart extends Solver {
 
-    /**
-     * Solves the P-median problem with TeitzBart algorithm.
-     */
+
     public TeitzBart() {
-        super("TeitzBart");
+        super("TeitzBart"); // Name of algorithm.
 
     }
     /**
