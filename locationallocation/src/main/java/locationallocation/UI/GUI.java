@@ -37,6 +37,7 @@ public class GUI extends JFrame  {
 
 
     private Pmedian app;
+    private JButton solveButton;
     private ButtonGroup algorithmButton;
     
     /**
@@ -116,12 +117,13 @@ public class GUI extends JFrame  {
             
         JTextField pChooser = new JTextField(3);
         pChooser.setToolTipText("Choose the number of facilities to allocate.");
+
+        
         
         
         pChooser.addActionListener(new ChoosePListener(this, this.app, pChooser));
-
-
         this.statusP = new JLabel();
+        this.updateStatus("P");
         
         panel2.add(pChooser);
         panel2.add(statusP);
@@ -152,7 +154,8 @@ public class GUI extends JFrame  {
        
 
         // Actions:
-        JButton solveButton = new JButton("Solve!");
+        this.solveButton = new JButton("Solve!");
+        solveButton.setEnabled(this.app.solveRequirementsFulfilled());
         panel4.add(solveButton);
         solveButton.addActionListener(new SolveListener(this, this.app));
 
@@ -215,12 +218,13 @@ public class GUI extends JFrame  {
         this.calculateCostMatrix();
         this.updateStatus("locations");
         this.updateStatus("P");
+        this.solveButton.setEnabled(this.app.solveRequirementsFulfilled());
 
     }
 
     
     /**
-     * Load example data to app. Dev-purposes in mind.
+     * Load example data to app.
      */
 
     class ExampleListener implements ActionListener {
@@ -231,7 +235,7 @@ public class GUI extends JFrame  {
     }
 
     /**
-     * Radio button.
+     * Create a radio button.
      * @param text A text to display and set as action command.
      * @return A radiobutton.
      */
@@ -256,9 +260,12 @@ public class GUI extends JFrame  {
         if (which == "locations") {
             this.statusDemandLocations.setText("Number of demand locations: " + this.app.getNumberOfDemandLocations());
             this.statusPossibleLocations.setText("Number of possible locations: " + this.app.getNumberOfPossibleLocations());
+            this.calculateCostMatrix();
+            this.solveButton.setEnabled(this.app.solveRequirementsFulfilled());
         }
     }
   
+   
     
 }
 

@@ -125,4 +125,6 @@ public abstract class Solver {
      * @param facilitiesInput Possible facilities to allocate.
      */
     public abstract void setPossibleLocations(Location[] facilitiesInput);
+
+   
 }

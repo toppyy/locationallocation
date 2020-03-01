@@ -24,7 +24,7 @@ public class ArrayList {
 
     public ArrayList() {
         
-        this.increment = 10;
+        this.increment = 1000;
         this.array = new String[this.increment];
         this.size = this.array.length;
         this.elementsInArray = 0;

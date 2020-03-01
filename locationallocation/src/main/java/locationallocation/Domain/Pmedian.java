@@ -175,5 +175,31 @@ public class Pmedian {
     }
 
 
+     /**
+     * Check if everything required for solving exists.
+     * @return boolean. True if problem is specified.
+     */
+    
+    public final boolean solveRequirementsFulfilled() {
+        Boolean requirements = true;
+
+        if (!this.costMatrixExists()) {
+            return false;
+        }
+
+        if (this.p <= 0) {
+            return false;
+        }
+
+        // GRIA is the only algorithm that requires possible locations, so: 
+        if (this.algorithm.getName().equals("GRIA") & this.getNumberOfPossibleLocations() == 0) {
+            return false;
+        }       
+ 
+
+        return requirements;
+    }
+    
+
 
 }
