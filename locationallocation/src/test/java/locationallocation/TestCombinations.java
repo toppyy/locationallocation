@@ -58,12 +58,19 @@ public class TestCombinations{
 
     @Test public void largeCombinations() {
 
-        int[] testArray = { 1,4,3,99,45,6,66,55,34,32,11,344,987,23,2,123,124,125,126 };
-        int[][] actual = createCombinations(testArray,9);
+
+        int[] testArray = new int[25];
+
+        for (int i = 0; i < testArray.length; i++) {
+            testArray[i] = i;
+        }
+        
+        int[][] actual = createCombinations(testArray,10);
         
 
-        int expected = 92378;
-        assertEquals("Largeish number of combinations correct", expected, actual.length);
+        int expected = 3268760; // Larger than INITIAL_SIZE of array in Combinations.
+
+        assertEquals("Large number of combinations correct", expected, actual.length);
 
 
     }

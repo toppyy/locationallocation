@@ -32,7 +32,7 @@
 .gitignore
 
 # Possible results
-/locationallocation/RES_*.csv
+/locationallocation/*.csv
 
 
 # Dead code storage

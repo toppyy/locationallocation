@@ -4,6 +4,8 @@ import locationallocation.Domain.Pmedian;
 import locationallocation.Qualitytest.Reporter;
 import locationallocation.Qualitytest.Testresult;
 
+import locationallocation.Utils.Arguments;
+
 import locationallocation.UI.GUI;
 /**
  * Solves the p-median problem.
@@ -102,7 +104,22 @@ public final class App {
             
 
             }
-    
+
+        Arguments arguments = new Arguments(args);
+
+        if (arguments.allRequiredArgumentsGiven()) {
+
+            Pmedian appFromArgs = new Pmedian(arguments);
+
+            appFromArgs.solve();
+
+            System.out.println("Solved with " + arguments.getAlgorithm() + ". Cost: " + appFromArgs.getResultCost());
+
+            appFromArgs.writeAllocationsToFile(arguments.getOutputPath());
+
+        }
+
+
         } else {
 
             GUI application = new GUI(app);

@@ -2,6 +2,8 @@ package locationallocation.Domain;
 
 import locationallocation.Utils.LocationLoader;
 import locationallocation.Utils.Location;
+import locationallocation.Utils.Arguments;
+
 import locationallocation.Utils.CostMatrix;
 import static locationallocation.Utils.Writer.writeLines;
 import java.io.IOException;
@@ -36,7 +38,33 @@ public class Pmedian {
         this.algorithms[1] =  "TeitzBart";
         this.algorithms[2] =  "GRIA";
     }
-    
+    /**
+     * Constuctor with given Arguments.
+     * @param args Parsed Arguments from cmd.
+     */
+    public Pmedian(final Arguments args) {
+        
+
+        this.algorithms = new String[3];
+        this.algorithms[0] =  "Naive";
+        this.algorithms[1] =  "TeitzBart";
+        this.algorithms[2] =  "GRIA";
+
+        
+        this.loadDemandlocations(args.getDemandLocationPath());
+        this.loadPossiblelocations(args.getPossibleLocationPath());
+        this.setP(args.getP());
+
+        this.setSolver(args.getAlgorithm());
+        
+        this.calculateCostMatrix();
+
+
+    }
+
+    public final void setP(final String inputP) {
+        this.p = Integer.parseInt(inputP);
+    }
 
     public final void setP(final int inputP) {
         this.p = inputP;
@@ -107,15 +135,19 @@ public class Pmedian {
     }
 
     public final void setSolver(final String chosenAlgorithm) {
-        if (chosenAlgorithm == "Naive") {
+        if (chosenAlgorithm.equals("Naive")) {
             this.setSolverToNaive();
         }
-        if (chosenAlgorithm == "GRIA") {
+        if (chosenAlgorithm.equals("GRIA")) {
             this.setSolverToGRIA();
         }
-        if (chosenAlgorithm == "TeitzBart") {
+        if (chosenAlgorithm.equals("TeitzBart")) {
             this.setSolverToTeitzBart();
         }
+    }
+
+    public final String getAlgorithmName() {
+        return this.algorithm.getName();
     }
 
 

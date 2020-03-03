@@ -17,7 +17,7 @@ public final class Combinations {
      * Counting the number of combinations given n and k would require implementation of BigInteger (if k  > 20).
      * A simpler solution was chosen: an initial array if created and in expanded if needed.
      */
-    private static final int INITIAL_SIZE = 10000000;
+    private static final int INITIAL_SIZE = 1000000;
      
     /** 
      * Creates an array of arrays holding all k combinations of "arr".

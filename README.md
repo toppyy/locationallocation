@@ -1,5 +1,14 @@
 # Location allocation and the p-median problem
 
+## Example
+
+Solve example problem with GRIA and write results to EXAMPLE.csv. Chooses a set of 7 facilities that minimize the cost from demand locations.
+
+    git clone https://github.com/toppyy/locationallocation   
+    cd locationallocation/locationallocation/
+    gradle run --args "out EXAMPLE.csv p 7 a GRIA dl src/test/resources/testdata_1_demand_locations.csv pl src/test/resources/testdata_1_facility_locations.csv"
+
+
 ## Documentation
 
 * [Design and aim of the project](https://github.com/toppyy/locationallocation/blob/master/documentation/design.md)
