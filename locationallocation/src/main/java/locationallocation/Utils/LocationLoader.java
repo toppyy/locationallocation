@@ -3,9 +3,7 @@ package locationallocation.Utils;
 import java.io.File; 
 
 import java.util.Scanner; 
-import java.io.FileNotFoundException; 
-
-import java.io.IOException;
+import java.io.FileNotFoundException;
 
 /**
  * Reads Locations from flatfiles.
@@ -35,7 +33,7 @@ public class LocationLoader  {
      * @return String[] Rows as an array.
      * @throws FileNotFoundException
      */
-    public ArrayList readFile() throws FileNotFoundException {
+    private ArrayList readFile() throws FileNotFoundException {
         
         Scanner sc = new Scanner(file); 
 
@@ -62,50 +60,42 @@ public class LocationLoader  {
      * Content: id for location, x- and y-coordinates and optional weight.
      * 
      * @return Location[]
+     * @throws FileNotFoundException
      */
-    public Location[] loadAsLocations() {
+    public Location[] loadAsLocations() throws FileNotFoundException {
 
-        try { 
 
-            ArrayList lines = readFile();
+        ArrayList lines = readFile();
+        
+        // If header is true, skip first row
+        int startRow = 0;
+        if (this.header)  {
+            startRow = 1;
+        }
+
+        Location[] locations = new Location[lines.size() - startRow];
+
+
+        for (int i = startRow; i < lines.size(); i++) {
+
+            String[] columns = lines.get(i).split(";");
+
+            String id = columns[0];
+
+            double x = Double.parseDouble(columns[1]);
+            double y = Double.parseDouble(columns[2]);
+
+            double w = 1;
+
             
-            // If header is true, skip first row
-            int startRow = 0;
-            if (this.header)  {
-                startRow = 1;
+            if (columns.length > 3) {
+                w = Double.parseDouble(columns[3]);
             }
 
-            Location[] locations = new Location[lines.size() - startRow];
+            locations[i - startRow] = new Location(id, x, y, w);
+        }
 
-
-            for (int i = startRow; i < lines.size(); i++) {
-
-                String[] columns = lines.get(i).split(";");
-
-                String id = columns[0];
-
-                double x = Double.parseDouble(columns[1]);
-                double y = Double.parseDouble(columns[2]);
-
-                double w = 1;
-
-                
-                if (columns.length > 3) {
-                    w = Double.parseDouble(columns[3]);
-                }
-
-                locations[i - startRow] = new Location(id, x, y, w);
-            }
-
-            return locations;
-
-        } catch (IOException e) { 
-      
-          System.out.println("Problem with reading the file");
-          e.printStackTrace(); 
-          Location[] rtrn = new Location[0];
-          return rtrn;
-        } 
+        return locations;
 
     }
 

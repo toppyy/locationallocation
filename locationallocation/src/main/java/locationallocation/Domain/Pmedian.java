@@ -7,6 +7,7 @@ import locationallocation.Utils.Arguments;
 import locationallocation.Utils.CostMatrix;
 import static locationallocation.Utils.Writer.writeLines;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import locationallocation.Exceptions.NotInSet;
 
@@ -40,20 +41,25 @@ public class Pmedian {
      * Constuctor with given Arguments.
      * @param args Parsed Arguments from cmd.
      */
-    public Pmedian(final Arguments args) {
+    public Pmedian(final Arguments args)  {
         
 
         this.algorithms = listAlgorithms();
 
-        
-        this.loadDemandlocations(args.getDemandLocationPath());
-        this.loadPossiblelocations(args.getPossibleLocationPath());
+        try {
+            this.loadDemandlocations(args.getDemandLocationPath());
+            this.loadPossiblelocations(args.getPossibleLocationPath());
+        } catch (FileNotFoundException exception) {
+            System.out.println("Check paths to files!");
+            return;
+        }
         this.setP(args.getP());
 
         try {
             this.setSolver(args.getAlgorithm());
         } catch (Exception e) {
             System.out.println("Exception: " + e);
+            return;
         }
         
         this.calculateCostMatrix();
@@ -62,10 +68,7 @@ public class Pmedian {
     }
 
     private String[] listAlgorithms() {
-
-
         return new String[]{"Naive", "TeitzBart", "GRIA"};
-
     }
 
     public final void setP(final String inputP) throws NumberFormatException { 
@@ -89,7 +92,7 @@ public class Pmedian {
         return this.algorithms;
     }
 
-    public final void loadDemandlocations(final String path) {
+    public final void loadDemandlocations(final String path) throws FileNotFoundException {
         this.demandLocations = this.loadLocations(path);
         
     }
@@ -99,7 +102,7 @@ public class Pmedian {
     }
     
 
-    public final void loadPossiblelocations(final String path) {
+    public final void loadPossiblelocations(final String path) throws FileNotFoundException {
         this.possibleLocations = this.loadLocations(path);
     }
 
@@ -111,9 +114,11 @@ public class Pmedian {
      * Load a file as locations.
      * @param path
      * @return Location[]
+     * @throws FileNotFoundException If input file not found.
      */
-    private Location[] loadLocations(final String path) {
+    private Location[] loadLocations(final String path) throws FileNotFoundException {
         LocationLoader data = new LocationLoader(path, true);
+        
         Location[] locations = data.loadAsLocations();
         return locations;
     }

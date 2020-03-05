@@ -12,6 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -23,6 +24,8 @@ import locationallocation.UI.ActionListeners.ChoosePListener;
 import locationallocation.UI.ActionListeners.InputFileChooserListener;
 import locationallocation.UI.ActionListeners.WriteResultsListener;
 import locationallocation.UI.ActionListeners.AlgorithmListener;
+
+import java.io.FileNotFoundException;
 
 
 
@@ -218,8 +221,19 @@ public class GUI extends JFrame  {
      */
     private void loadExample() {
         // Defaults for dev
-        this.app.loadDemandlocations("src/test/resources/testdata_1_demand_locations.csv");
-        this.app.loadPossiblelocations("src/test/resources/testdata_1_facility_locations.csv");
+        try {
+            this.app.loadDemandlocations("example_demand_locations.csv");
+        } catch (FileNotFoundException exception) {
+
+            JOptionPane.showMessageDialog(null, "\"example_demand_locations.csv\" not found!");
+        }
+        try {
+            
+            this.app.loadPossiblelocations("example_facility_locations.csv");
+        } catch (FileNotFoundException exception) {
+            JOptionPane.showMessageDialog(null, "\"example_facility_locations.csv\" not found!");
+
+        }
         this.app.setP(7);
         this.calculateCostMatrix();
         this.updateStatus("locations");

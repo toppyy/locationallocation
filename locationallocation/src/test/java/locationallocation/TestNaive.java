@@ -8,6 +8,9 @@ import locationallocation.Domain.Naive;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+
+import java.io.FileNotFoundException;
+
 import static org.junit.Assert.assertArrayEquals;
 
 public class TestNaive {
@@ -30,7 +33,7 @@ public class TestNaive {
 
         
     }
-    @Test public void correctCost() {
+    @Test public void correctCost() throws FileNotFoundException {
         
         
         String path = "src/test/resources/testdata_1_demand_locations.csv";

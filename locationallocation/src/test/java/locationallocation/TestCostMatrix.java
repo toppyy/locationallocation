@@ -46,10 +46,10 @@ public class TestCostMatrix {
         int[] correctDimensions = { this.testLocations1.length, this.testLocations2.length };
         int[] matrixDimensions =  { costsM.length , costsM[0].length   };
 
-        assertArrayEquals("Distance matrix dimensions are incorrect", correctDimensions , matrixDimensions );
+        assertArrayEquals("Cost matrix dimensions are incorrect", correctDimensions , matrixDimensions );
         
         for (int row = 0;row < this.answer.length; row++) {
-            assertArrayEquals("Distance matrix incorrect on row " + row, this.answer[row] , costsM[row] , 0.0001 );
+            assertArrayEquals("Cost matrix incorrect on row " + row, this.answer[row] , costsM[row] , 0.0001 );
         }
         
     }

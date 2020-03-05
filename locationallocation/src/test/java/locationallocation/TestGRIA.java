@@ -10,6 +10,8 @@ import locationallocation.Domain.GRIA;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+
 public class TestGRIA {
     @Test public void correctFacilitySetSmall() {
         
@@ -34,7 +36,7 @@ public class TestGRIA {
 
         
     }
-    @Test public void correctCost() {
+    @Test public void correctCost() throws FileNotFoundException {
         
         
         String path = "src/test/resources/testdata_1_demand_locations.csv";
