@@ -26,47 +26,9 @@ public final class App {
 
         Pmedian app = new Pmedian();
 
-        // To run a simple example, try: gradle run --args "example 8"
         if (args.length > 0) {
 
-            if (args[0].equals("example")) {
-
-                Integer p = Integer.parseInt(args[1]);
-
-                // Set up
-                app.setP(p);
-                
-                app.loadDemandlocations("src/test/resources/testdata_1_demand_locations.csv");
-                app.loadPossiblelocations("src/test/resources/testdata_1_facility_locations.csv");
-
-                app.calculateCostMatrix();
-
-                // Solve with all algorithms
-                app.setSolverToTeitzBart();
-                app.solve();
-                double costTB = app.getResultCost();
-
-                app.writeAllocationsToFile("RES_TB.csv");
-
-                app.setSolverToGRIA();
-                app.solve();
-                double costGRIA = app.getResultCost();
-
-                app.writeAllocationsToFile("RES_GRIA.csv");
-
-                app.setSolverToNaive();
-                app.solve();
-                double costNaive = app.getResultCost();
-
-                app.writeAllocationsToFile("RES_NAIVE.csv");
-
-                System.out.println("Total cost of solution:");
-                System.out.println("TB: " + costTB);
-                System.out.println("GRIA: " + costGRIA);
-                System.out.println("Naive: " + costNaive);
-                
-            }
-
+            // Performance tests
             if (args[0].equals("perf")) {
 
                 String outputfolder = args[1];                
@@ -105,19 +67,24 @@ public final class App {
 
             }
 
-        Arguments arguments = new Arguments(args);
 
-        if (arguments.allRequiredArgumentsGiven()) {
+            // Run application with CMD-arguments
+            Arguments arguments = new Arguments(args);
 
-            Pmedian appFromArgs = new Pmedian(arguments);
+            if (arguments.allRequiredArgumentsGiven()) {
 
-            appFromArgs.solve();
+                Pmedian appFromArgs = new Pmedian(arguments);
 
-            System.out.println("Solved with " + arguments.getAlgorithm() + ". Cost: " + appFromArgs.getResultCost());
+                if (appFromArgs.solve()) {
 
-            appFromArgs.writeAllocationsToFile(arguments.getOutputPath());
+                    System.out.println("Solved with " + arguments.getAlgorithm() + ". Cost: " + appFromArgs.getResultCost());
 
-        }
+                    appFromArgs.writeAllocationsToFile(arguments.getOutputPath());
+                }
+
+            } else {
+                System.out.println("All required arguments not given.");
+            }
 
 
         } else {

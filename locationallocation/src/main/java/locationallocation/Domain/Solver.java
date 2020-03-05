@@ -51,19 +51,6 @@ public abstract class Solver {
         this.costMatrix = inputCostMatrix;
     }
 
-    public final void printResults() {
-
-        if (resultCost < 0) {
-            System.out.println("No results yet. Try .solve() first.");
-            return;
-        }
-
-        for (int i : this.result) {
-            System.out.print(i + " ");
-        }
-        System.out.println("\nCostsum: " + this.resultCost);
-            
-    }
 
     /**
      * Getter for result.

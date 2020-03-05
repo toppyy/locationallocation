@@ -25,6 +25,7 @@ import locationallocation.UI.ActionListeners.WriteResultsListener;
 import locationallocation.UI.ActionListeners.AlgorithmListener;
 
 
+
 /**
  * A simple GUI for the application.
  */
@@ -147,7 +148,12 @@ public class GUI extends JFrame  {
             // Select first button;
             if (i == 0) {
                 button.setSelected(true);
-                this.app.setSolver(algorithms[i]);
+                try {                  
+                    this.app.setSolver(algorithms[i]);
+                } catch (Exception error) {
+                    System.out.println(error);
+                }
+                
             }
            
         }

@@ -1,5 +1,25 @@
 # Location allocation and the p-median problem
 
+The program allocates demand locations to supply facilities by:
+* Calculating euclidean distances between locations
+* Choosing a set of facilities that try to minimize the total cost (~distance) between demand locations and supply facilities.
+
+
+
+## Instructions
+
+Arguments:
+* <i>out</i>: path of output file
+* <i>p</i>: number of facilities to allocate to
+* <i>dl</i>: file containing location of demand locations
+* <i>pl</i>: file containing location of possible facility locations
+* <i>a</i>: name of algorithm ("Naive"/"TeitzBart"/"GRIA")
+
+The input files are expected to
+* have a header row
+* have at least three columns: ID, X and Y coordinates
+* a possible fourth column to weight distances between demand and possible facility locations
+
 ## Example
 
 Solve example problem with GRIA and write results to EXAMPLE.csv. Chooses a set of 7 facilities that minimize the cost from demand locations.
@@ -7,7 +27,6 @@ Solve example problem with GRIA and write results to EXAMPLE.csv. Chooses a set 
     git clone https://github.com/toppyy/locationallocation   
     cd locationallocation/locationallocation/
     gradle run --args "out EXAMPLE.csv p 7 a GRIA dl src/test/resources/testdata_1_demand_locations.csv pl src/test/resources/testdata_1_facility_locations.csv"
-
 
 ## Documentation
 

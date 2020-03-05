@@ -24,7 +24,6 @@ public class Arguments {
 
     private void setArgument(final String which, final String value) {
 
-        System.out.println("Setting " + which + " to " + value);
         if (which.equals("dl")) {
             this.locDemand = value;
         }
@@ -42,34 +41,25 @@ public class Arguments {
         }
     }
 
-
+    /**
+     * Parse arguments. 
+     * @param args Arguments given as an array of Strings in which odd indexes hold keys and even indexes values.
+     */
     
     private void parseArguments(final String[] args) {
 
         if (args.length % 2 != 0) {
-            System.out.println("Number of arguments is not even.");
+            System.out.println("Number of arguments (key-value -pairs) is not even.");
             return;
         }
-
-
-      
 
         for (int i = 0; i < args.length; i += 2) {
             
             this.setArgument(args[i], args[i + 1]);
 
         }
-
-        this.print();
-
-
-
-
     }
 
-    public final void print() {
-        System.out.println(this.locDemand + ", " + locPossible + ", " + p + ", " + a + ", " + out);
-    }
 
     public final boolean allRequiredArgumentsGiven() {
 

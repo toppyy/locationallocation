@@ -8,6 +8,7 @@ import javax.swing.JRadioButton;
 
 import locationallocation.Domain.Pmedian;
 
+
  /**
  * Action listener for radio button choosing the algorithm to use.
  */
@@ -28,8 +29,11 @@ public class AlgorithmListener implements ActionListener {
     public void actionPerformed(final ActionEvent e) {
 
         String command = button.getActionCommand();
-                
-        this.app.setSolver(command);
+        try {                  
+            this.app.setSolver(command);
+        } catch (Exception error) {
+            System.out.println(error);
+        }
     }
 
 }

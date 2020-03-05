@@ -6,8 +6,9 @@ import locationallocation.Utils.Arguments;
 
 import locationallocation.Utils.CostMatrix;
 import static locationallocation.Utils.Writer.writeLines;
-import java.io.IOException;
 
+import java.io.IOException;
+import locationallocation.Exceptions.NotInSet;
 
 /**
  * Algorithms are accessed through this. Holds application logic.
@@ -33,10 +34,7 @@ public class Pmedian {
         this.possibleLocations = new Location[0];
         this.p = 0;
 
-        this.algorithms = new String[3];
-        this.algorithms[0] =  "Naive";
-        this.algorithms[1] =  "TeitzBart";
-        this.algorithms[2] =  "GRIA";
+        this.algorithms = listAlgorithms();
     }
     /**
      * Constuctor with given Arguments.
@@ -45,25 +43,38 @@ public class Pmedian {
     public Pmedian(final Arguments args) {
         
 
-        this.algorithms = new String[3];
-        this.algorithms[0] =  "Naive";
-        this.algorithms[1] =  "TeitzBart";
-        this.algorithms[2] =  "GRIA";
+        this.algorithms = listAlgorithms();
 
         
         this.loadDemandlocations(args.getDemandLocationPath());
         this.loadPossiblelocations(args.getPossibleLocationPath());
         this.setP(args.getP());
 
-        this.setSolver(args.getAlgorithm());
+        try {
+            this.setSolver(args.getAlgorithm());
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
         
         this.calculateCostMatrix();
 
 
     }
 
-    public final void setP(final String inputP) {
-        this.p = Integer.parseInt(inputP);
+    private String[] listAlgorithms() {
+
+
+        return new String[]{"Naive", "TeitzBart", "GRIA"};
+
+    }
+
+    public final void setP(final String inputP) throws NumberFormatException { 
+        try { 
+            this.p = Integer.parseInt(inputP);
+        } catch (NumberFormatException e) {
+            System.out.println("P must be a number! You gave \"" + inputP + "\".");
+        }
+        
     }
 
     public final void setP(final int inputP) {
@@ -120,30 +131,30 @@ public class Pmedian {
     }
 
 
+    public final void setSolver(final String chosenAlgorithm) throws NotInSet {
 
-    public final void setSolverToNaive() {
-        this.algorithm = new Naive();
-    }
 
-    public final void setSolverToGRIA() {
-        this.algorithm = new GRIA();
-        this.algorithm.setPossibleLocations(this.possibleLocations);
-    }
-
-    public final void setSolverToTeitzBart() {
-        this.algorithm = new TeitzBart();
-    }
-
-    public final void setSolver(final String chosenAlgorithm) {
         if (chosenAlgorithm.equals("Naive")) {
-            this.setSolverToNaive();
+            this.algorithm = new Naive();
+            return;
         }
         if (chosenAlgorithm.equals("GRIA")) {
-            this.setSolverToGRIA();
+            this.algorithm = new GRIA();
+            this.algorithm.setPossibleLocations(this.possibleLocations);
+            return;
         }
         if (chosenAlgorithm.equals("TeitzBart")) {
-            this.setSolverToTeitzBart();
+            this.algorithm = new TeitzBart();
+            return;
         }
+
+        String message = "\n\nAlgorithm is expected to be one of these:\n";
+        for (String a : algorithms) {
+            message += "  -\"" + a + "\"\n";
+        }
+        
+        throw new NotInSet(message + "\n");
+
     }
 
     public final String getAlgorithmName() {
@@ -151,8 +162,15 @@ public class Pmedian {
     }
 
 
-    public final void solve() {
-        this.algorithm.solveWithParams(this.costs, this.p);
+    public final boolean solve() {
+        if (this.solveRequirementsFulfilled()) {
+            this.algorithm.solveWithParams(this.costs, this.p);
+        } else {
+            System.out.println("All requirements for solving not met.");
+            return false;
+        }
+
+        return true;
 
     }
 
@@ -167,13 +185,8 @@ public class Pmedian {
     public int[] getResultAllocations() {
         return this.algorithm.getResultAllocations();
     }
-    /**
-     * Write results (facility allocations) to a file.
-     * Output is a CSV-file containing two columns: one for demand location and another for the facility it's allocated to.
-     * @param filePathInput Path to write results to.
-     */
-    public void writeAllocationsToFile(final String filePathInput) {
 
+    public final String[] resultAllocationsForFlatFile() {
         int[] allocations = this.getResultAllocations();
         String[] lines = new String[allocations.length + 1];
 
@@ -192,10 +205,19 @@ public class Pmedian {
             lines[demandLocationIdx + 1] = line;
         }
 
+        return lines;
+    }
+
+    /**
+     * Write results (facility allocations) to a file.
+     * Output is a CSV-file containing two columns: one for demand location and another for the facility it's allocated to.
+     * @param filePathInput Path to write results to.
+     */
+    public void writeAllocationsToFile(final String filePathInput) {
+
     
-        
         try {
-            writeLines(filePathInput, lines);
+            writeLines(filePathInput, resultAllocationsForFlatFile());
             System.out.println("Wrote lines to " + filePathInput);
         } catch (IOException e) { 
       
@@ -220,6 +242,10 @@ public class Pmedian {
         }
 
         if (this.p <= 0) {
+            return false;
+        }
+
+        if (this.algorithm == null) {
             return false;
         }
 

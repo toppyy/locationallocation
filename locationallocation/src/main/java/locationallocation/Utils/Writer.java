@@ -30,7 +30,6 @@ public final class Writer {
             fileWriter.write(st);
         }
         fileWriter.close();
-        System.out.println("Wrote results to: " + pathOutput);
     }
 
 }
