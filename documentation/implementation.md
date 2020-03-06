@@ -7,7 +7,7 @@ Three algorithms solving the p-median problem are implemented:
 
 ## Brute force
 
-The brute force solutions is based on enumeration. The program enlists all possible combinations and chooses the one with the minumum overall cost.
+The brute force solutions is based on enumeration. The program enlists all possible combinations and chooses the one with the minimum overall cost.
 
 ## TeitzBart 
 
@@ -29,4 +29,4 @@ The algorithm has two consecutive steps after creating an initial solution of th
     2. Swap each candidate with the facility it's allocated to. Count cost. 
     3. Find the swap that has the lowest total cost.
 
-The implementation uses primitives, arrays and a set as data structures. The set is implemented as a part of the program.
+The implementation uses primitives, arrays, and a set as data structures. The set is implemented as a part of the program.

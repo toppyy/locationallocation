@@ -2,6 +2,7 @@ package locationallocation.UI;
 
 
 import locationallocation.Domain.Pmedian;
+import locationallocation.Exceptions.NotInSet;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -61,8 +62,9 @@ public class GUI extends JFrame  {
   
     /**
      * Run application.
+     * @return True, if start gives no error
      */
-    public void start() {
+    public boolean start() {
         // Create and set up a frame window
         JFrame.setDefaultLookAndFeelDecorated(true);
         JFrame frame = new JFrame("P-median solver");
@@ -132,34 +134,15 @@ public class GUI extends JFrame  {
         panel2.add(pChooser);
         panel2.add(statusP);
         
-        // Radio buttons for algorithm choice
-        // Group for the radio buttons.
-        this.algorithmButton = new ButtonGroup();
 
-        String[] algorithms = this.app.getAlgorithms();
-
-
-
-        for (int i = 0; i < algorithms.length; i++) {
-            JRadioButton button = createRadioButton(algorithms[i]);
-            
-            algorithmButton.add(button);
+        // Radiobutton group for algorithms
+        
+        JRadioButton[] buttons = createRadioButtonGroupForAlgos();
+        // Add to app
+        for (JRadioButton button : buttons) {
             panel3.add(button);
-
-            button.addActionListener(new AlgorithmListener(this.app, button));
-
-            // Select first button;
-            if (i == 0) {
-                button.setSelected(true);
-                try {                  
-                    this.app.setSolver(algorithms[i]);
-                } catch (Exception error) {
-                    System.out.println(error);
-                }
-                
-            }
-           
         }
+        
        
 
         // Actions:
@@ -202,8 +185,11 @@ public class GUI extends JFrame  {
         
         frame.setVisible(true);
         
+
+        return true;
     }
 
+   
 
     /**
      * Calculate cost matrix.
@@ -266,8 +252,49 @@ public class GUI extends JFrame  {
     }
 
 
+
     /**
-     * Updates status texts based on input.
+     * Create a radio button group for algos.
+     * @return Buttons of created group.
+     */
+
+    private JRadioButton[] createRadioButtonGroupForAlgos() {
+
+        this.algorithmButton = new ButtonGroup();
+
+
+        String[] algorithms = this.app.getAlgorithms();
+        
+        JRadioButton[] buttons = new JRadioButton[algorithms.length];
+
+        for (int i = 0; i < algorithms.length; i++) {
+            JRadioButton button = createRadioButton(algorithms[i]);
+            
+            algorithmButton.add(button);
+            
+            buttons[i] = button;
+            
+
+            button.addActionListener(new AlgorithmListener(this.app, button));
+
+            // Select first button;
+            if (i == 0) {
+                button.setSelected(true);
+                try {                  
+                    this.app.setSolver(algorithms[i]);
+                } catch (NotInSet error) {
+                    System.out.println(error);
+                }
+                
+            }
+           
+        }
+
+        return buttons;
+    }
+
+    /**
+     * Updates status based on input.
      * @param which
      */
     public void updateStatus(final String which) {

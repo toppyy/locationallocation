@@ -183,6 +183,10 @@ public class Pmedian {
         return this.algorithm.getResultCost();
     }
 
+    public final void deleteResult() {
+        this.algorithm.setResultCost(0);
+    }
+
     /**
      * Get result as demand facility - possible facility pairs.
      * @return For each demand facility, the index of possible facility location it's allocated to.

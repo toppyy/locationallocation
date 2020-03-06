@@ -1,5 +1,5 @@
 /**
- * A UI for the application (IN DEVELOPMENT!).
+ * A UI for the application.
  */
 
 package locationallocation.UI;

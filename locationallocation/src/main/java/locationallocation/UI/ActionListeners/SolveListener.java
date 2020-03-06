@@ -21,7 +21,11 @@ public class SolveListener implements ActionListener {
      * When clicked, solve problem and update app.
      * @param e Event.
      */
-    public void actionPerformed(final ActionEvent e) {    
+    public void actionPerformed(final ActionEvent e) {   
+        
+        // Empty results before run
+        this.app.deleteResult();
+        this.ui.updateStatus("cost");
         this.app.solve();
         this.ui.updateStatus("cost");        
     }

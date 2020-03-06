@@ -40,26 +40,36 @@ public class InputFileChooserListener implements ActionListener {
         if (result == JFileChooser.APPROVE_OPTION) {
 
             File selectedFile = fileChooser.getSelectedFile();
-            if (this.which.equals("demand")) {
-                try { 
-                    this.app.loadDemandlocations(selectedFile.getAbsolutePath());
-                } catch (FileNotFoundException exception) {
-                    System.out.println("File not found!");
-                }
-            }
-            if (this.which.equals("possible")) {
-                try { 
-                    this.app.loadPossiblelocations(selectedFile.getAbsolutePath());
-
-                } catch (FileNotFoundException exception) {
-                    System.out.println("File not found!");
-                }
-            }
+            
+            this.loadFile(selectedFile);
 
             this.ui.updateStatus("locations");
 
         }
 
         
+    }
+    /**
+     * Load chosen file.
+     * @param selectedFile Chosen file.
+     */
+    public void loadFile(final File selectedFile) {
+
+        if (this.which.equals("demand")) {
+            try { 
+                this.app.loadDemandlocations(selectedFile.getAbsolutePath());
+            } catch (FileNotFoundException exception) {
+                System.out.println("File not found!");
+            }
+        }
+        if (this.which.equals("possible")) {
+            try { 
+                this.app.loadPossiblelocations(selectedFile.getAbsolutePath());
+
+            } catch (FileNotFoundException exception) {
+                System.out.println("File not found!");
+            }
+        }
+
     }
 }
